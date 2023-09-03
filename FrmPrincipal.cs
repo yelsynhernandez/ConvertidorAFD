@@ -1,3 +1,6 @@
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+
 namespace WinFormsApp1
 {
     public partial class FrmPrincipal : Form
@@ -7,68 +10,34 @@ namespace WinFormsApp1
             InitializeComponent();
         }
 
+        string archivo;
+        string[] estados;
+        string[] alfabeto;
+        char estadoInicial;
+
         private void limpiarControles()
         {
-            txtRutaArchivo.Clear();
             txtContenidoArchivo.Clear();
             txtAlfabeto.Clear();
             txtEstados.Clear();
             txtEstadosDeAceptacion.Clear();
             lblEstadoInicial.Visible = false;
-            txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
-            txtRutaArchivo.Text = "//Arrastre aquí el archivo de texto";
+            dgvTablaTransicion.Rows.Clear();
+            dgvTablaTransicion.Columns.Clear();
         }
 
-        private void cargarArchivo()
+        private void textoDefecto(bool activo)
         {
-            try
+            if (activo)
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Title = "Seleccionar un archivo de texto";
-                openFileDialog.InitialDirectory = @"%USERPFROFILE%";
-                openFileDialog.Filter = "Text File (*.txt)|*.txt";
-                openFileDialog.FilterIndex = 0;
-                openFileDialog.ShowDialog();
-
-                if (openFileDialog.FileName != "")
-                {
-                    limpiarControles();
-                    string archivo = openFileDialog.FileName;
-                    txtRutaArchivo.AppendText(archivo);
-
-                    if (archivo.Length > 0)
-                    {
-                        string extension = Path.GetExtension(archivo);
-                        if (extension == ".txt")
-                        {
-                            string linea = "";
-                            var fs = new FileStream(archivo, FileMode.Open, FileAccess.Read);
-                            using (var sr = new StreamReader(fs))
-                            {
-                                while ((linea = sr.ReadLine()) != null)
-                                {
-                                    procesarLinea(linea);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("El archivo seleccionado no es un archivo de texto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se ha seleccionado ningún archivo", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No se seleccionó ningún archivo de texto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+                txtRutaArchivo.Text = "//Arrastre aquí el archivo de texto";
+                txtRutaArchivo.ForeColor = Color.Gray;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtRutaArchivo.Clear();
+                txtRutaArchivo.Text = archivo;
             }
         }
 
@@ -87,32 +56,91 @@ namespace WinFormsApp1
                 switch (quintupla)
                 {
                     case 'Q':
-                        dividirCadena(partes[1], txtEstados);
+                        dividirCadena(partes[1], txtEstados, quintupla);
                         break;
                     case 'T':
-                        dividirCadena(partes[1], txtAlfabeto);
+                        dividirCadena(partes[1], txtAlfabeto, quintupla);
                         break;
                     case 'i':
-                        lblEstadoInicial.Text = "Estado inicial: " + partes[1];
+                        estadoInicial = partes[1].ToCharArray()[0];
+                        lblEstadoInicial.Text = "Estado inicial: " + estadoInicial;
                         lblEstadoInicial.Visible = true;
                         break;
                     case 'A':
-                        dividirCadena(partes[1], txtEstadosDeAceptacion);
+                        dividirCadena(partes[1], txtEstadosDeAceptacion, quintupla);
+                        break;
+                    case 'W':
+                        generarTabla(partes[1]);
                         break;
                 }
             }
         }
-        private void dividirCadena(string cadena, TextBox tx)
+        private void dividirCadena(string cadena, TextBox tx, char valorQuintupla)
         {
             try
             {
                 cadena = cadena.Trim('{', '}', ' ');
                 string[] valores = cadena.Split(new char[] { ',' }, StringSplitOptions.TrimEntries);
+                switch (valorQuintupla)
+                {
+                    case 'Q':
+                        estados = valores;
+                        break;
+                    case 'T':
+                        alfabeto = valores;
+                        break;
+                }
 
                 foreach (string valor in valores)
                 {
-                    tx.AppendText($"{valor}\r\n");
+                    if (valorQuintupla == 'A')
+                    {
+                        if (estados.Contains(valor))
+                        {
+                            tx.AppendText($"{valor}\r\n");
+                        }
+                        else
+                        {
+                            tx.AppendText($"{valor} - (Estado no definido)\r\n");
+                        }
+                    }
+                    else
+                    {
+                        tx.AppendText($"{valor}\r\n");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void generarTabla(string cadenaTransiciones)
+        {
+            try
+            {
+                cadenaTransiciones = cadenaTransiciones.Trim(' ', '{', '}');
+
+                string[] transiciones = cadenaTransiciones.Split(new char[] { '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
+
+                DataGridViewTextBoxColumn columna;
+                columna = new DataGridViewTextBoxColumn();
+                columna.HeaderText = "";
+                dgvTablaTransicion.Columns.Add(columna);
+
+                foreach (string cadena in alfabeto)
+                {
+                    columna = new DataGridViewTextBoxColumn();
+                    columna.HeaderText = cadena;
+                    dgvTablaTransicion.Columns.Add(columna);
+                }
+
+                foreach (string estado in estados)
+                {
+                    dgvTablaTransicion.Rows.Add(estado);
+                }
+                dgvTablaTransicion.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
             catch (Exception ex)
             {
@@ -123,26 +151,17 @@ namespace WinFormsApp1
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             limpiarControles();
+            textoDefecto(true);
         }
 
-        private void btnSeleccionarArchivo_Click(object sender, EventArgs e)
-        {
-            cargarArchivo();
-        }
-
-        private void txtRutaArchivo_Click(object sender, EventArgs e)
-        {
-            cargarArchivo();
-        }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            lblEstadosDeAceptacion.Text = $"Estados\r\nde aceptación";
-            lblEstadoInicial.Visible = false;
-            txtRutaArchivo.Text = "//Arrastre aquí el archivo de texto";
-            txtRutaArchivo.ForeColor = Color.Gray;
             txtRutaArchivo.DragEnter += txtRutaArchivo_DragEnter;
             txtRutaArchivo.DragDrop += txtRutaArchivo_DragDrop;
+
+            lblEstadoInicial.Visible = false;
+            textoDefecto(true);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -152,41 +171,65 @@ namespace WinFormsApp1
 
         private void txtRutaArchivo_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            try
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                if (files.Length == 1 && Path.GetExtension(files[0]).Equals(".txt", StringComparison.OrdinalIgnoreCase))
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 {
-                    e.Effect = DragDropEffects.Copy;
+                    string[] archivos = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                    if (archivos.Length == 1 && Path.GetExtension(archivos[0]).Equals(".txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        e.Effect = DragDropEffects.Copy;
+                    }
+                    else
+                    {
+                        e.Effect = DragDropEffects.None;
+                    }
                 }
                 else
                 {
                     e.Effect = DragDropEffects.None;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                e.Effect = DragDropEffects.None;
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void txtRutaArchivo_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-            foreach (string file in files)
+            try
             {
-                if (Path.GetExtension(file).Equals(".txt", StringComparison.OrdinalIgnoreCase))
+                string[] archivos = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                foreach (string archivo in archivos)
                 {
-                    txtRutaArchivo.Clear();
-                    txtRutaArchivo.AppendText(file);
-                    txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+                    if (Path.GetExtension(archivo).Equals(".txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string linea = "";
+                        var fs = new FileStream(archivo, FileMode.Open, FileAccess.Read);
+
+                        textoDefecto(false);
+                        limpiarControles();
+
+                        using (var sr = new StreamReader(fs))
+                        {
+                            while ((linea = sr.ReadLine()) != null)
+                            {
+                                procesarLinea(linea);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Por favor, arrastra un archivo de texto (.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Por favor, arrastra un archivo de texto (.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

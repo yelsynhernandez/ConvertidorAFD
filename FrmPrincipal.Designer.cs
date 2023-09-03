@@ -82,7 +82,7 @@
             lblContenido.Margin = new Padding(4, 0, 4, 0);
             lblContenido.Name = "lblContenido";
             lblContenido.Size = new Size(152, 17);
-            lblContenido.TabIndex = 4;
+            lblContenido.TabIndex = 5;
             lblContenido.Text = "Contenido del archivo:";
             // 
             // lblEstados
@@ -93,7 +93,7 @@
             lblEstados.Margin = new Padding(4, 0, 4, 0);
             lblEstados.Name = "lblEstados";
             lblEstados.Size = new Size(66, 17);
-            lblEstados.TabIndex = 7;
+            lblEstados.TabIndex = 6;
             lblEstados.Text = "Estados:";
             // 
             // lblAlfabeto
@@ -104,7 +104,7 @@
             lblAlfabeto.Margin = new Padding(4, 0, 4, 0);
             lblAlfabeto.Name = "lblAlfabeto";
             lblAlfabeto.Size = new Size(64, 17);
-            lblAlfabeto.TabIndex = 9;
+            lblAlfabeto.TabIndex = 7;
             lblAlfabeto.Text = "Alfabeto:";
             // 
             // btnLimpiar
@@ -123,12 +123,12 @@
             // 
             lblEstadosDeAceptacion.Anchor = AnchorStyles.Bottom;
             lblEstadosDeAceptacion.AutoSize = true;
-            lblEstadosDeAceptacion.Location = new Point(706, 121);
+            lblEstadosDeAceptacion.Location = new Point(694, 104);
             lblEstadosDeAceptacion.Margin = new Padding(4, 0, 4, 0);
             lblEstadosDeAceptacion.Name = "lblEstadosDeAceptacion";
-            lblEstadosDeAceptacion.Size = new Size(62, 17);
-            lblEstadosDeAceptacion.TabIndex = 13;
-            lblEstadosDeAceptacion.Text = "Estados";
+            lblEstadosDeAceptacion.Size = new Size(86, 34);
+            lblEstadosDeAceptacion.TabIndex = 8;
+            lblEstadosDeAceptacion.Text = "Estados de aceptación";
             // 
             // tlpBase
             // 
@@ -184,8 +184,9 @@
             txtContenidoArchivo.Margin = new Padding(4);
             txtContenidoArchivo.Multiline = true;
             txtContenidoArchivo.Name = "txtContenidoArchivo";
+            txtContenidoArchivo.ReadOnly = true;
             txtContenidoArchivo.Size = new Size(342, 498);
-            txtContenidoArchivo.TabIndex = 17;
+            txtContenidoArchivo.TabIndex = 10;
             // 
             // txtEstados
             // 
@@ -194,8 +195,9 @@
             txtEstados.Margin = new Padding(4);
             txtEstados.Multiline = true;
             txtEstados.Name = "txtEstados";
+            txtEstados.ReadOnly = true;
             txtEstados.Size = new Size(147, 498);
-            txtEstados.TabIndex = 23;
+            txtEstados.TabIndex = 11;
             // 
             // txtAlfabeto
             // 
@@ -204,8 +206,9 @@
             txtAlfabeto.Margin = new Padding(4);
             txtAlfabeto.Multiline = true;
             txtAlfabeto.Name = "txtAlfabeto";
+            txtAlfabeto.ReadOnly = true;
             txtAlfabeto.Size = new Size(147, 498);
-            txtAlfabeto.TabIndex = 18;
+            txtAlfabeto.TabIndex = 12;
             // 
             // txtEstadosDeAceptacion
             // 
@@ -214,17 +217,18 @@
             txtEstadosDeAceptacion.Margin = new Padding(4);
             txtEstadosDeAceptacion.Multiline = true;
             txtEstadosDeAceptacion.Name = "txtEstadosDeAceptacion";
+            txtEstadosDeAceptacion.ReadOnly = true;
             txtEstadosDeAceptacion.Size = new Size(147, 498);
-            txtEstadosDeAceptacion.TabIndex = 19;
+            txtEstadosDeAceptacion.TabIndex = 13;
             // 
             // btnCerrar
             // 
             btnCerrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCerrar.Location = new Point(1003, 650);
-            btnCerrar.Margin = new Padding(4, 4, 17, 17);
+            btnCerrar.Location = new Point(1005, 652);
+            btnCerrar.Margin = new Padding(4, 4, 15, 15);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(148, 28);
-            btnCerrar.TabIndex = 19;
+            btnCerrar.TabIndex = 15;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
             btnCerrar.Click += btnCerrar_Click;
@@ -236,9 +240,10 @@
             dgvTablaTransicion.Location = new Point(819, 142);
             dgvTablaTransicion.Margin = new Padding(4);
             dgvTablaTransicion.Name = "dgvTablaTransicion";
+            dgvTablaTransicion.ReadOnly = true;
             dgvTablaTransicion.RowTemplate.Height = 25;
             dgvTablaTransicion.Size = new Size(345, 498);
-            dgvTablaTransicion.TabIndex = 25;
+            dgvTablaTransicion.TabIndex = 14;
             // 
             // lblTablaTransicion
             // 
@@ -248,7 +253,7 @@
             lblTablaTransicion.Margin = new Padding(4, 0, 4, 0);
             lblTablaTransicion.Name = "lblTablaTransicion";
             lblTablaTransicion.Size = new Size(134, 17);
-            lblTablaTransicion.TabIndex = 26;
+            lblTablaTransicion.TabIndex = 9;
             lblTablaTransicion.Text = "Matriz de transición";
             // 
             // FrmPrincipal

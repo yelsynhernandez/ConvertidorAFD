@@ -15,6 +15,8 @@ namespace WinFormsApp1
             txtEstados.Clear();
             txtEstadosDeAceptacion.Clear();
             lblEstadoInicial.Visible = false;
+            txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
+            txtRutaArchivo.Text = "//Arrastre aquí el archivo de texto";
         }
 
         private void cargarArchivo()
@@ -133,9 +135,59 @@ namespace WinFormsApp1
             cargarArchivo();
         }
 
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+            lblEstadosDeAceptacion.Text = $"Estados\r\nde aceptación";
+            lblEstadoInicial.Visible = false;
+            txtRutaArchivo.Text = "//Arrastre aquí el archivo de texto";
+            txtRutaArchivo.ForeColor = Color.Gray;
+            txtRutaArchivo.DragEnter += txtRutaArchivo_DragEnter;
+            txtRutaArchivo.DragDrop += txtRutaArchivo_DragDrop;
+        }
+
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtRutaArchivo_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                if (files.Length == 1 && Path.GetExtension(files[0]).Equals(".txt", StringComparison.OrdinalIgnoreCase))
+                {
+                    e.Effect = DragDropEffects.Copy;
+                }
+                else
+                {
+                    e.Effect = DragDropEffects.None;
+                }
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void txtRutaArchivo_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            foreach (string file in files)
+            {
+                if (Path.GetExtension(file).Equals(".txt", StringComparison.OrdinalIgnoreCase))
+                {
+                    txtRutaArchivo.Clear();
+                    txtRutaArchivo.AppendText(file);
+                    txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, arrastra un archivo de texto (.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

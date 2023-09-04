@@ -51,6 +51,7 @@
             // txtRutaArchivo
             // 
             txtRutaArchivo.AllowDrop = true;
+            txtRutaArchivo.BackColor = SystemColors.Window;
             tlpBase.SetColumnSpan(txtRutaArchivo, 3);
             txtRutaArchivo.Dock = DockStyle.Bottom;
             txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
@@ -109,8 +110,8 @@
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Anchor = AnchorStyles.None;
-            btnLimpiar.Location = new Point(354, 6);
+            btnLimpiar.Anchor = AnchorStyles.Bottom;
+            btnLimpiar.Location = new Point(354, 8);
             btnLimpiar.Margin = new Padding(4);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(147, 28);
@@ -132,6 +133,7 @@
             // 
             // tlpBase
             // 
+            tlpBase.BackColor = SystemColors.InactiveCaption;
             tlpBase.ColumnCount = 5;
             tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.003F));
             tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.3313332F));
@@ -168,10 +170,10 @@
             // 
             // lblEstadoInicial
             // 
-            lblEstadoInicial.Anchor = AnchorStyles.None;
+            lblEstadoInicial.Anchor = AnchorStyles.Bottom;
             lblEstadoInicial.AutoSize = true;
-            lblEstadoInicial.Location = new Point(531, 11);
-            lblEstadoInicial.Margin = new Padding(4, 0, 4, 0);
+            lblEstadoInicial.Location = new Point(531, 13);
+            lblEstadoInicial.Margin = new Padding(4, 0, 4, 10);
             lblEstadoInicial.Name = "lblEstadoInicial";
             lblEstadoInicial.Size = new Size(102, 17);
             lblEstadoInicial.TabIndex = 2;
@@ -179,6 +181,8 @@
             // 
             // txtContenidoArchivo
             // 
+            txtContenidoArchivo.BackColor = SystemColors.Window;
+            txtContenidoArchivo.BorderStyle = BorderStyle.FixedSingle;
             txtContenidoArchivo.Dock = DockStyle.Fill;
             txtContenidoArchivo.Location = new Point(4, 142);
             txtContenidoArchivo.Margin = new Padding(4);
@@ -190,6 +194,8 @@
             // 
             // txtEstados
             // 
+            txtEstados.BackColor = SystemColors.Window;
+            txtEstados.BorderStyle = BorderStyle.FixedSingle;
             txtEstados.Dock = DockStyle.Fill;
             txtEstados.Location = new Point(354, 142);
             txtEstados.Margin = new Padding(4);
@@ -201,6 +207,8 @@
             // 
             // txtAlfabeto
             // 
+            txtAlfabeto.BackColor = SystemColors.Window;
+            txtAlfabeto.BorderStyle = BorderStyle.FixedSingle;
             txtAlfabeto.Dock = DockStyle.Fill;
             txtAlfabeto.Location = new Point(509, 142);
             txtAlfabeto.Margin = new Padding(4);
@@ -212,6 +220,8 @@
             // 
             // txtEstadosDeAceptacion
             // 
+            txtEstadosDeAceptacion.BackColor = SystemColors.Window;
+            txtEstadosDeAceptacion.BorderStyle = BorderStyle.FixedSingle;
             txtEstadosDeAceptacion.Dock = DockStyle.Fill;
             txtEstadosDeAceptacion.Location = new Point(664, 142);
             txtEstadosDeAceptacion.Margin = new Padding(4);
@@ -235,6 +245,11 @@
             // 
             // dgvTablaTransicion
             // 
+            dgvTablaTransicion.AllowUserToAddRows = false;
+            dgvTablaTransicion.AllowUserToDeleteRows = false;
+            dgvTablaTransicion.AllowUserToResizeColumns = false;
+            dgvTablaTransicion.AllowUserToResizeRows = false;
+            dgvTablaTransicion.BackgroundColor = SystemColors.Window;
             dgvTablaTransicion.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTablaTransicion.Dock = DockStyle.Fill;
             dgvTablaTransicion.Location = new Point(819, 142);
@@ -260,6 +275,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(1168, 695);
             Controls.Add(tlpBase);
             Font = new Font("Arial", 11F, FontStyle.Regular, GraphicsUnit.Point);

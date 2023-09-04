@@ -28,208 +28,285 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnCerrar = new Button();
-            btnSeleccionarArchivo = new Button();
             txtRutaArchivo = new TextBox();
             lblRutaArchivo = new Label();
             lblContenido = new Label();
-            txtContenidoArchivo = new TextBox();
-            txtEstados = new TextBox();
             lblEstados = new Label();
-            txtAlfabeto = new TextBox();
             lblAlfabeto = new Label();
             btnLimpiar = new Button();
+            lblEstadosDeAceptacion = new Label();
+            tlpBase = new TableLayoutPanel();
             lblEstadoInicial = new Label();
+            txtContenidoArchivo = new TextBox();
+            txtEstados = new TextBox();
+            txtAlfabeto = new TextBox();
             txtEstadosDeAceptacion = new TextBox();
-            lblEstadosDe = new Label();
-            lblDeAceptacion = new Label();
+            btnCerrar = new Button();
+            dgvTablaTransicion = new DataGridView();
+            lblTablaTransicion = new Label();
+            tlpBase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTablaTransicion).BeginInit();
             SuspendLayout();
-            // 
-            // btnCerrar
-            // 
-            btnCerrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCerrar.Location = new Point(613, 401);
-            btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(75, 21);
-            btnCerrar.TabIndex = 0;
-            btnCerrar.Text = "Cerrar";
-            btnCerrar.UseVisualStyleBackColor = true;
-            btnCerrar.Click += btnCerrar_Click;
-            // 
-            // btnSeleccionarArchivo
-            // 
-            btnSeleccionarArchivo.Location = new Point(37, 18);
-            btnSeleccionarArchivo.Name = "btnSeleccionarArchivo";
-            btnSeleccionarArchivo.Size = new Size(138, 23);
-            btnSeleccionarArchivo.TabIndex = 1;
-            btnSeleccionarArchivo.Text = "Seleccionar un arhivo";
-            btnSeleccionarArchivo.UseVisualStyleBackColor = true;
-            btnSeleccionarArchivo.Click += btnSeleccionarArchivo_Click;
             // 
             // txtRutaArchivo
             // 
-            txtRutaArchivo.Cursor = Cursors.Hand;
-            txtRutaArchivo.Location = new Point(77, 47);
+            txtRutaArchivo.AllowDrop = true;
+            txtRutaArchivo.BackColor = SystemColors.Window;
+            tlpBase.SetColumnSpan(txtRutaArchivo, 3);
+            txtRutaArchivo.Dock = DockStyle.Bottom;
+            txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
+            txtRutaArchivo.Location = new Point(354, 51);
+            txtRutaArchivo.Margin = new Padding(4);
+            txtRutaArchivo.MaxLength = 500;
             txtRutaArchivo.Name = "txtRutaArchivo";
             txtRutaArchivo.ReadOnly = true;
-            txtRutaArchivo.Size = new Size(473, 23);
-            txtRutaArchivo.TabIndex = 2;
-            txtRutaArchivo.Click += txtRutaArchivo_Click;
+            txtRutaArchivo.Size = new Size(457, 25);
+            txtRutaArchivo.TabIndex = 4;
+            txtRutaArchivo.DragDrop += txtRutaArchivo_DragDrop;
             // 
             // lblRutaArchivo
             // 
+            lblRutaArchivo.Anchor = AnchorStyles.Right;
             lblRutaArchivo.AutoSize = true;
-            lblRutaArchivo.Location = new Point(37, 50);
+            lblRutaArchivo.Location = new Point(303, 55);
+            lblRutaArchivo.Margin = new Padding(4, 7, 4, 0);
             lblRutaArchivo.Name = "lblRutaArchivo";
-            lblRutaArchivo.Size = new Size(34, 15);
+            lblRutaArchivo.Size = new Size(43, 17);
             lblRutaArchivo.TabIndex = 3;
             lblRutaArchivo.Text = "Ruta:";
             // 
             // lblContenido
             // 
+            lblContenido.Anchor = AnchorStyles.Bottom;
             lblContenido.AutoSize = true;
-            lblContenido.Location = new Point(37, 95);
+            lblContenido.Location = new Point(99, 121);
+            lblContenido.Margin = new Padding(4, 0, 4, 0);
             lblContenido.Name = "lblContenido";
-            lblContenido.Size = new Size(127, 15);
-            lblContenido.TabIndex = 4;
+            lblContenido.Size = new Size(152, 17);
+            lblContenido.TabIndex = 5;
             lblContenido.Text = "Contenido del archivo:";
-            // 
-            // txtContenidoArchivo
-            // 
-            txtContenidoArchivo.Location = new Point(37, 112);
-            txtContenidoArchivo.Multiline = true;
-            txtContenidoArchivo.Name = "txtContenidoArchivo";
-            txtContenidoArchivo.ReadOnly = true;
-            txtContenidoArchivo.Size = new Size(301, 243);
-            txtContenidoArchivo.TabIndex = 5;
-            // 
-            // txtEstados
-            // 
-            txtEstados.Location = new Point(344, 112);
-            txtEstados.Multiline = true;
-            txtEstados.Name = "txtEstados";
-            txtEstados.ReadOnly = true;
-            txtEstados.Size = new Size(100, 245);
-            txtEstados.TabIndex = 8;
             // 
             // lblEstados
             // 
+            lblEstados.Anchor = AnchorStyles.Bottom;
             lblEstados.AutoSize = true;
-            lblEstados.Location = new Point(344, 95);
+            lblEstados.Location = new Point(394, 121);
+            lblEstados.Margin = new Padding(4, 0, 4, 0);
             lblEstados.Name = "lblEstados";
-            lblEstados.Size = new Size(50, 15);
-            lblEstados.TabIndex = 7;
+            lblEstados.Size = new Size(66, 17);
+            lblEstados.TabIndex = 6;
             lblEstados.Text = "Estados:";
-            // 
-            // txtAlfabeto
-            // 
-            txtAlfabeto.Location = new Point(450, 112);
-            txtAlfabeto.Multiline = true;
-            txtAlfabeto.Name = "txtAlfabeto";
-            txtAlfabeto.ReadOnly = true;
-            txtAlfabeto.Size = new Size(100, 245);
-            txtAlfabeto.TabIndex = 10;
             // 
             // lblAlfabeto
             // 
+            lblAlfabeto.Anchor = AnchorStyles.Bottom;
             lblAlfabeto.AutoSize = true;
-            lblAlfabeto.Location = new Point(450, 95);
+            lblAlfabeto.Location = new Point(550, 121);
+            lblAlfabeto.Margin = new Padding(4, 0, 4, 0);
             lblAlfabeto.Name = "lblAlfabeto";
-            lblAlfabeto.Size = new Size(55, 15);
-            lblAlfabeto.TabIndex = 9;
+            lblAlfabeto.Size = new Size(64, 17);
+            lblAlfabeto.TabIndex = 7;
             lblAlfabeto.Text = "Alfabeto:";
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(182, 18);
+            btnLimpiar.Anchor = AnchorStyles.Bottom;
+            btnLimpiar.Location = new Point(354, 8);
+            btnLimpiar.Margin = new Padding(4);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(138, 23);
-            btnLimpiar.TabIndex = 11;
+            btnLimpiar.Size = new Size(147, 28);
+            btnLimpiar.TabIndex = 1;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = true;
             btnLimpiar.Click += btnLimpiar_Click;
             // 
+            // lblEstadosDeAceptacion
+            // 
+            lblEstadosDeAceptacion.Anchor = AnchorStyles.Bottom;
+            lblEstadosDeAceptacion.AutoSize = true;
+            lblEstadosDeAceptacion.Location = new Point(694, 104);
+            lblEstadosDeAceptacion.Margin = new Padding(4, 0, 4, 0);
+            lblEstadosDeAceptacion.Name = "lblEstadosDeAceptacion";
+            lblEstadosDeAceptacion.Size = new Size(86, 34);
+            lblEstadosDeAceptacion.TabIndex = 8;
+            lblEstadosDeAceptacion.Text = "Estados de aceptación";
+            // 
+            // tlpBase
+            // 
+            tlpBase.BackColor = SystemColors.InactiveCaption;
+            tlpBase.ColumnCount = 5;
+            tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.003F));
+            tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.3313332F));
+            tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.3313332F));
+            tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.3313332F));
+            tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.003F));
+            tlpBase.Controls.Add(lblRutaArchivo, 0, 1);
+            tlpBase.Controls.Add(txtRutaArchivo, 1, 1);
+            tlpBase.Controls.Add(btnLimpiar, 1, 0);
+            tlpBase.Controls.Add(lblEstadoInicial, 2, 0);
+            tlpBase.Controls.Add(lblContenido, 0, 2);
+            tlpBase.Controls.Add(lblEstados, 1, 2);
+            tlpBase.Controls.Add(lblAlfabeto, 2, 2);
+            tlpBase.Controls.Add(lblEstadosDeAceptacion, 3, 2);
+            tlpBase.Controls.Add(txtContenidoArchivo, 0, 3);
+            tlpBase.Controls.Add(txtEstados, 1, 3);
+            tlpBase.Controls.Add(txtAlfabeto, 2, 3);
+            tlpBase.Controls.Add(txtEstadosDeAceptacion, 3, 3);
+            tlpBase.Controls.Add(btnCerrar, 4, 4);
+            tlpBase.Controls.Add(dgvTablaTransicion, 4, 3);
+            tlpBase.Controls.Add(lblTablaTransicion, 4, 2);
+            tlpBase.Dock = DockStyle.Fill;
+            tlpBase.Location = new Point(0, 0);
+            tlpBase.Margin = new Padding(4);
+            tlpBase.Name = "tlpBase";
+            tlpBase.RowCount = 5;
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
+            tlpBase.Size = new Size(1168, 695);
+            tlpBase.TabIndex = 0;
+            // 
             // lblEstadoInicial
             // 
+            lblEstadoInicial.Anchor = AnchorStyles.Bottom;
             lblEstadoInicial.AutoSize = true;
-            lblEstadoInicial.Location = new Point(344, 75);
+            lblEstadoInicial.Location = new Point(531, 13);
+            lblEstadoInicial.Margin = new Padding(4, 0, 4, 10);
             lblEstadoInicial.Name = "lblEstadoInicial";
-            lblEstadoInicial.Size = new Size(76, 15);
-            lblEstadoInicial.TabIndex = 12;
-            lblEstadoInicial.Text = "Estado inicial";
-            lblEstadoInicial.Visible = false;
+            lblEstadoInicial.Size = new Size(102, 17);
+            lblEstadoInicial.TabIndex = 2;
+            lblEstadoInicial.Text = "[Estado inicial]";
+            // 
+            // txtContenidoArchivo
+            // 
+            txtContenidoArchivo.BackColor = SystemColors.Window;
+            txtContenidoArchivo.BorderStyle = BorderStyle.FixedSingle;
+            txtContenidoArchivo.Dock = DockStyle.Fill;
+            txtContenidoArchivo.Location = new Point(4, 142);
+            txtContenidoArchivo.Margin = new Padding(4);
+            txtContenidoArchivo.Multiline = true;
+            txtContenidoArchivo.Name = "txtContenidoArchivo";
+            txtContenidoArchivo.ReadOnly = true;
+            txtContenidoArchivo.Size = new Size(342, 498);
+            txtContenidoArchivo.TabIndex = 10;
+            // 
+            // txtEstados
+            // 
+            txtEstados.BackColor = SystemColors.Window;
+            txtEstados.BorderStyle = BorderStyle.FixedSingle;
+            txtEstados.Dock = DockStyle.Fill;
+            txtEstados.Location = new Point(354, 142);
+            txtEstados.Margin = new Padding(4);
+            txtEstados.Multiline = true;
+            txtEstados.Name = "txtEstados";
+            txtEstados.ReadOnly = true;
+            txtEstados.Size = new Size(147, 498);
+            txtEstados.TabIndex = 11;
+            // 
+            // txtAlfabeto
+            // 
+            txtAlfabeto.BackColor = SystemColors.Window;
+            txtAlfabeto.BorderStyle = BorderStyle.FixedSingle;
+            txtAlfabeto.Dock = DockStyle.Fill;
+            txtAlfabeto.Location = new Point(509, 142);
+            txtAlfabeto.Margin = new Padding(4);
+            txtAlfabeto.Multiline = true;
+            txtAlfabeto.Name = "txtAlfabeto";
+            txtAlfabeto.ReadOnly = true;
+            txtAlfabeto.Size = new Size(147, 498);
+            txtAlfabeto.TabIndex = 12;
             // 
             // txtEstadosDeAceptacion
             // 
-            txtEstadosDeAceptacion.Location = new Point(556, 110);
+            txtEstadosDeAceptacion.BackColor = SystemColors.Window;
+            txtEstadosDeAceptacion.BorderStyle = BorderStyle.FixedSingle;
+            txtEstadosDeAceptacion.Dock = DockStyle.Fill;
+            txtEstadosDeAceptacion.Location = new Point(664, 142);
+            txtEstadosDeAceptacion.Margin = new Padding(4);
             txtEstadosDeAceptacion.Multiline = true;
             txtEstadosDeAceptacion.Name = "txtEstadosDeAceptacion";
             txtEstadosDeAceptacion.ReadOnly = true;
-            txtEstadosDeAceptacion.Size = new Size(100, 245);
-            txtEstadosDeAceptacion.TabIndex = 14;
+            txtEstadosDeAceptacion.Size = new Size(147, 498);
+            txtEstadosDeAceptacion.TabIndex = 13;
             // 
-            // lblEstadosDe
+            // btnCerrar
             // 
-            lblEstadosDe.AutoSize = true;
-            lblEstadosDe.Location = new Point(556, 77);
-            lblEstadosDe.Name = "lblEstadosDe";
-            lblEstadosDe.Size = new Size(47, 15);
-            lblEstadosDe.TabIndex = 13;
-            lblEstadosDe.Text = "Estados";
+            btnCerrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCerrar.Location = new Point(1005, 652);
+            btnCerrar.Margin = new Padding(4, 4, 15, 15);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.Size = new Size(148, 28);
+            btnCerrar.TabIndex = 15;
+            btnCerrar.Text = "Cerrar";
+            btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click;
             // 
-            // lblDeAceptacion
+            // dgvTablaTransicion
             // 
-            lblDeAceptacion.AutoSize = true;
-            lblDeAceptacion.Location = new Point(556, 92);
-            lblDeAceptacion.Name = "lblDeAceptacion";
-            lblDeAceptacion.Size = new Size(84, 15);
-            lblDeAceptacion.TabIndex = 15;
-            lblDeAceptacion.Text = "de aceptación:";
+            dgvTablaTransicion.AllowUserToAddRows = false;
+            dgvTablaTransicion.AllowUserToDeleteRows = false;
+            dgvTablaTransicion.AllowUserToResizeColumns = false;
+            dgvTablaTransicion.AllowUserToResizeRows = false;
+            dgvTablaTransicion.BackgroundColor = SystemColors.Window;
+            dgvTablaTransicion.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTablaTransicion.Dock = DockStyle.Fill;
+            dgvTablaTransicion.Location = new Point(819, 142);
+            dgvTablaTransicion.Margin = new Padding(4);
+            dgvTablaTransicion.Name = "dgvTablaTransicion";
+            dgvTablaTransicion.ReadOnly = true;
+            dgvTablaTransicion.RowTemplate.Height = 25;
+            dgvTablaTransicion.Size = new Size(345, 498);
+            dgvTablaTransicion.TabIndex = 14;
+            // 
+            // lblTablaTransicion
+            // 
+            lblTablaTransicion.Anchor = AnchorStyles.Bottom;
+            lblTablaTransicion.AutoSize = true;
+            lblTablaTransicion.Location = new Point(924, 121);
+            lblTablaTransicion.Margin = new Padding(4, 0, 4, 0);
+            lblTablaTransicion.Name = "lblTablaTransicion";
+            lblTablaTransicion.Size = new Size(134, 17);
+            lblTablaTransicion.TabIndex = 9;
+            lblTablaTransicion.Text = "Matriz de transición";
             // 
             // FrmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 434);
-            Controls.Add(lblDeAceptacion);
-            Controls.Add(txtEstadosDeAceptacion);
-            Controls.Add(lblEstadosDe);
-            Controls.Add(lblEstadoInicial);
-            Controls.Add(btnLimpiar);
-            Controls.Add(txtAlfabeto);
-            Controls.Add(lblAlfabeto);
-            Controls.Add(txtEstados);
-            Controls.Add(lblEstados);
-            Controls.Add(txtContenidoArchivo);
-            Controls.Add(lblContenido);
-            Controls.Add(lblRutaArchivo);
-            Controls.Add(txtRutaArchivo);
-            Controls.Add(btnSeleccionarArchivo);
-            Controls.Add(btnCerrar);
+            BackColor = SystemColors.GradientInactiveCaption;
+            ClientSize = new Size(1168, 695);
+            Controls.Add(tlpBase);
+            Font = new Font("Arial", 11F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(4);
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Análisis de archivo de texto";
+            Text = "Leer autómata";
+            Load += FrmPrincipal_Load;
+            tlpBase.ResumeLayout(false);
+            tlpBase.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTablaTransicion).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Button btnCerrar;
-        private Button btnSeleccionarArchivo;
         private TextBox txtRutaArchivo;
         private Label lblRutaArchivo;
         private Label lblContenido;
-        private TextBox txtContenidoArchivo;
-        private TextBox txtEstados;
         private Label lblEstados;
-        private TextBox txtAlfabeto;
         private Label lblAlfabeto;
         private Button btnLimpiar;
-        private Label lblEstadoInicial;
+        private Label lblEstadosDeAceptacion;
+        private TableLayoutPanel tlpBase;
+        private TextBox txtEstados;
+        private Button btnCerrar;
+        private TextBox txtContenidoArchivo;
+        private TextBox txtAlfabeto;
         private TextBox txtEstadosDeAceptacion;
-        private Label lblEstadosDe;
-        private Label lblDeAceptacion;
+        private Label lblEstadoInicial;
+        private DataGridView dgvTablaTransicion;
+        private Label lblTablaTransicion;
     }
 }

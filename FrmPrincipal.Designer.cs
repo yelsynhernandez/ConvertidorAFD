@@ -55,12 +55,12 @@
             tlpBase.SetColumnSpan(txtRutaArchivo, 3);
             txtRutaArchivo.Dock = DockStyle.Bottom;
             txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
-            txtRutaArchivo.Location = new Point(354, 51);
+            txtRutaArchivo.Location = new Point(354, 47);
             txtRutaArchivo.Margin = new Padding(4);
             txtRutaArchivo.MaxLength = 500;
             txtRutaArchivo.Name = "txtRutaArchivo";
             txtRutaArchivo.ReadOnly = true;
-            txtRutaArchivo.Size = new Size(457, 25);
+            txtRutaArchivo.Size = new Size(457, 29);
             txtRutaArchivo.TabIndex = 4;
             txtRutaArchivo.DragDrop += txtRutaArchivo_DragDrop;
             // 
@@ -68,10 +68,10 @@
             // 
             lblRutaArchivo.Anchor = AnchorStyles.Right;
             lblRutaArchivo.AutoSize = true;
-            lblRutaArchivo.Location = new Point(303, 55);
+            lblRutaArchivo.Location = new Point(292, 52);
             lblRutaArchivo.Margin = new Padding(4, 7, 4, 0);
             lblRutaArchivo.Name = "lblRutaArchivo";
-            lblRutaArchivo.Size = new Size(43, 17);
+            lblRutaArchivo.Size = new Size(54, 22);
             lblRutaArchivo.TabIndex = 3;
             lblRutaArchivo.Text = "Ruta:";
             // 
@@ -79,10 +79,10 @@
             // 
             lblContenido.Anchor = AnchorStyles.Bottom;
             lblContenido.AutoSize = true;
-            lblContenido.Location = new Point(99, 121);
+            lblContenido.Location = new Point(76, 116);
             lblContenido.Margin = new Padding(4, 0, 4, 0);
             lblContenido.Name = "lblContenido";
-            lblContenido.Size = new Size(152, 17);
+            lblContenido.Size = new Size(198, 22);
             lblContenido.TabIndex = 5;
             lblContenido.Text = "Contenido del archivo:";
             // 
@@ -90,10 +90,10 @@
             // 
             lblEstados.Anchor = AnchorStyles.Bottom;
             lblEstados.AutoSize = true;
-            lblEstados.Location = new Point(394, 121);
+            lblEstados.Location = new Point(385, 116);
             lblEstados.Margin = new Padding(4, 0, 4, 0);
             lblEstados.Name = "lblEstados";
-            lblEstados.Size = new Size(66, 17);
+            lblEstados.Size = new Size(85, 22);
             lblEstados.TabIndex = 6;
             lblEstados.Text = "Estados:";
             // 
@@ -101,10 +101,10 @@
             // 
             lblAlfabeto.Anchor = AnchorStyles.Bottom;
             lblAlfabeto.AutoSize = true;
-            lblAlfabeto.Location = new Point(550, 121);
+            lblAlfabeto.Location = new Point(539, 116);
             lblAlfabeto.Margin = new Padding(4, 0, 4, 0);
             lblAlfabeto.Name = "lblAlfabeto";
-            lblAlfabeto.Size = new Size(64, 17);
+            lblAlfabeto.Size = new Size(86, 22);
             lblAlfabeto.TabIndex = 7;
             lblAlfabeto.Text = "Alfabeto:";
             // 
@@ -124,10 +124,10 @@
             // 
             lblEstadosDeAceptacion.Anchor = AnchorStyles.Bottom;
             lblEstadosDeAceptacion.AutoSize = true;
-            lblEstadosDeAceptacion.Location = new Point(694, 104);
+            lblEstadosDeAceptacion.Location = new Point(681, 94);
             lblEstadosDeAceptacion.Margin = new Padding(4, 0, 4, 0);
             lblEstadosDeAceptacion.Name = "lblEstadosDeAceptacion";
-            lblEstadosDeAceptacion.Size = new Size(86, 34);
+            lblEstadosDeAceptacion.Size = new Size(112, 44);
             lblEstadosDeAceptacion.TabIndex = 8;
             lblEstadosDeAceptacion.Text = "Estados de aceptación";
             // 
@@ -172,10 +172,10 @@
             // 
             lblEstadoInicial.Anchor = AnchorStyles.Bottom;
             lblEstadoInicial.AutoSize = true;
-            lblEstadoInicial.Location = new Point(531, 13);
-            lblEstadoInicial.Margin = new Padding(4, 0, 4, 10);
+            lblEstadoInicial.Location = new Point(517, 12);
+            lblEstadoInicial.Margin = new Padding(4, 0, 4, 6);
             lblEstadoInicial.Name = "lblEstadoInicial";
-            lblEstadoInicial.Size = new Size(102, 17);
+            lblEstadoInicial.Size = new Size(131, 22);
             lblEstadoInicial.TabIndex = 2;
             lblEstadoInicial.Text = "[Estado inicial]";
             // 
@@ -256,6 +256,7 @@
             dgvTablaTransicion.Margin = new Padding(4);
             dgvTablaTransicion.Name = "dgvTablaTransicion";
             dgvTablaTransicion.ReadOnly = true;
+            dgvTablaTransicion.RowHeadersWidth = 51;
             dgvTablaTransicion.RowTemplate.Height = 25;
             dgvTablaTransicion.Size = new Size(345, 498);
             dgvTablaTransicion.TabIndex = 14;
@@ -264,16 +265,16 @@
             // 
             lblTablaTransicion.Anchor = AnchorStyles.Bottom;
             lblTablaTransicion.AutoSize = true;
-            lblTablaTransicion.Location = new Point(924, 121);
+            lblTablaTransicion.Location = new Point(906, 116);
             lblTablaTransicion.Margin = new Padding(4, 0, 4, 0);
             lblTablaTransicion.Name = "lblTablaTransicion";
-            lblTablaTransicion.Size = new Size(134, 17);
+            lblTablaTransicion.Size = new Size(171, 22);
             lblTablaTransicion.TabIndex = 9;
             lblTablaTransicion.Text = "Matriz de transición";
             // 
             // FrmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(8F, 17F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(1168, 695);

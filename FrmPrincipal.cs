@@ -13,7 +13,6 @@ namespace WinFormsApp1
         string[] estados;
         string[] alfabeto;
         char estadoInicial;
-        int totalEjecuciones = 0;
 
         private void limpiarControles()
         {
@@ -265,32 +264,28 @@ namespace WinFormsApp1
         {
             try
             {
-                if (totalEjecuciones < 1)
+                string[] archivos = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                if (Path.GetExtension(archivos[0]).Equals(".txt", StringComparison.OrdinalIgnoreCase))
                 {
-                    totalEjecuciones++;
-                    string[] archivos = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    string linea = "";
+                    var fs = new FileStream(archivos[0], FileMode.Open, FileAccess.Read);
 
-                    if (Path.GetExtension(archivos[0]).Equals(".txt", StringComparison.OrdinalIgnoreCase))
+                    textoDefecto(false);
+                    txtRutaArchivo.Text = archivos[0];
+                    limpiarControles();
+
+                    using (var sr = new StreamReader(fs))
                     {
-                        string linea = "";
-                        var fs = new FileStream(archivos[0], FileMode.Open, FileAccess.Read);
-
-                        textoDefecto(false);
-                        txtRutaArchivo.Text = archivos[0];
-                        limpiarControles();
-
-                        using (var sr = new StreamReader(fs))
+                        while ((linea = sr.ReadLine()) != null)
                         {
-                            while ((linea = sr.ReadLine()) != null)
-                            {
-                                procesarLinea(linea);
-                            }
+                            procesarLinea(linea);
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Por favor, arrastra un archivo de texto (.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, arrastra un archivo de texto (.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)

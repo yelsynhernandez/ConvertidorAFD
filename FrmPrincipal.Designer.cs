@@ -51,16 +51,16 @@
             // txtRutaArchivo
             // 
             txtRutaArchivo.AllowDrop = true;
-            txtRutaArchivo.BackColor = SystemColors.Window;
+            txtRutaArchivo.BackColor = SystemColors.Menu;
             tlpBase.SetColumnSpan(txtRutaArchivo, 3);
             txtRutaArchivo.Dock = DockStyle.Bottom;
             txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
-            txtRutaArchivo.Location = new Point(354, 47);
-            txtRutaArchivo.Margin = new Padding(4);
+            txtRutaArchivo.Location = new Point(354, 64);
+            txtRutaArchivo.Margin = new Padding(4, 5, 4, 5);
             txtRutaArchivo.MaxLength = 500;
             txtRutaArchivo.Name = "txtRutaArchivo";
             txtRutaArchivo.ReadOnly = true;
-            txtRutaArchivo.Size = new Size(457, 29);
+            txtRutaArchivo.Size = new Size(457, 25);
             txtRutaArchivo.TabIndex = 4;
             txtRutaArchivo.DragDrop += txtRutaArchivo_DragDrop;
             // 
@@ -68,10 +68,12 @@
             // 
             lblRutaArchivo.Anchor = AnchorStyles.Right;
             lblRutaArchivo.AutoSize = true;
-            lblRutaArchivo.Location = new Point(292, 52);
-            lblRutaArchivo.Margin = new Padding(4, 7, 4, 0);
+            lblRutaArchivo.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblRutaArchivo.ForeColor = SystemColors.HotTrack;
+            lblRutaArchivo.Location = new Point(302, 64);
+            lblRutaArchivo.Margin = new Padding(4, 8, 4, 0);
             lblRutaArchivo.Name = "lblRutaArchivo";
-            lblRutaArchivo.Size = new Size(54, 22);
+            lblRutaArchivo.Size = new Size(44, 20);
             lblRutaArchivo.TabIndex = 3;
             lblRutaArchivo.Text = "Ruta:";
             // 
@@ -79,10 +81,12 @@
             // 
             lblContenido.Anchor = AnchorStyles.Bottom;
             lblContenido.AutoSize = true;
-            lblContenido.Location = new Point(76, 116);
+            lblContenido.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblContenido.ForeColor = SystemColors.HotTrack;
+            lblContenido.Location = new Point(93, 142);
             lblContenido.Margin = new Padding(4, 0, 4, 0);
             lblContenido.Name = "lblContenido";
-            lblContenido.Size = new Size(198, 22);
+            lblContenido.Size = new Size(164, 20);
             lblContenido.TabIndex = 5;
             lblContenido.Text = "Contenido del archivo:";
             // 
@@ -90,10 +94,12 @@
             // 
             lblEstados.Anchor = AnchorStyles.Bottom;
             lblEstados.AutoSize = true;
-            lblEstados.Location = new Point(385, 116);
+            lblEstados.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblEstados.ForeColor = SystemColors.HotTrack;
+            lblEstados.Location = new Point(395, 142);
             lblEstados.Margin = new Padding(4, 0, 4, 0);
             lblEstados.Name = "lblEstados";
-            lblEstados.Size = new Size(85, 22);
+            lblEstados.Size = new Size(64, 20);
             lblEstados.TabIndex = 6;
             lblEstados.Text = "Estados:";
             // 
@@ -101,39 +107,45 @@
             // 
             lblAlfabeto.Anchor = AnchorStyles.Bottom;
             lblAlfabeto.AutoSize = true;
-            lblAlfabeto.Location = new Point(539, 116);
+            lblAlfabeto.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAlfabeto.ForeColor = SystemColors.HotTrack;
+            lblAlfabeto.Location = new Point(547, 142);
             lblAlfabeto.Margin = new Padding(4, 0, 4, 0);
             lblAlfabeto.Name = "lblAlfabeto";
-            lblAlfabeto.Size = new Size(86, 22);
+            lblAlfabeto.Size = new Size(71, 20);
             lblAlfabeto.TabIndex = 7;
             lblAlfabeto.Text = "Alfabeto:";
             // 
             // btnLimpiar
             // 
             btnLimpiar.Anchor = AnchorStyles.Bottom;
-            btnLimpiar.Location = new Point(354, 8);
-            btnLimpiar.Margin = new Padding(4);
+            btnLimpiar.BackColor = SystemColors.GradientInactiveCaption;
+            btnLimpiar.ForeColor = SystemColors.ActiveCaptionText;
+            btnLimpiar.Location = new Point(354, 9);
+            btnLimpiar.Margin = new Padding(4, 5, 4, 5);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(147, 28);
+            btnLimpiar.Size = new Size(147, 33);
             btnLimpiar.TabIndex = 1;
             btnLimpiar.Text = "Limpiar";
-            btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.UseVisualStyleBackColor = false;
             btnLimpiar.Click += btnLimpiar_Click;
             // 
             // lblEstadosDeAceptacion
             // 
             lblEstadosDeAceptacion.Anchor = AnchorStyles.Bottom;
             lblEstadosDeAceptacion.AutoSize = true;
-            lblEstadosDeAceptacion.Location = new Point(681, 94);
+            lblEstadosDeAceptacion.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblEstadosDeAceptacion.ForeColor = SystemColors.HotTrack;
+            lblEstadosDeAceptacion.Location = new Point(695, 122);
             lblEstadosDeAceptacion.Margin = new Padding(4, 0, 4, 0);
             lblEstadosDeAceptacion.Name = "lblEstadosDeAceptacion";
-            lblEstadosDeAceptacion.Size = new Size(112, 44);
+            lblEstadosDeAceptacion.Size = new Size(85, 40);
             lblEstadosDeAceptacion.TabIndex = 8;
             lblEstadosDeAceptacion.Text = "Estados de aceptación";
             // 
             // tlpBase
             // 
-            tlpBase.BackColor = SystemColors.InactiveCaption;
+            tlpBase.BackColor = SystemColors.Window;
             tlpBase.ColumnCount = 5;
             tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.003F));
             tlpBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.3313332F));
@@ -157,90 +169,94 @@
             tlpBase.Controls.Add(lblTablaTransicion, 4, 2);
             tlpBase.Dock = DockStyle.Fill;
             tlpBase.Location = new Point(0, 0);
-            tlpBase.Margin = new Padding(4);
+            tlpBase.Margin = new Padding(4, 5, 4, 5);
             tlpBase.Name = "tlpBase";
             tlpBase.RowCount = 5;
-            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 47F));
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 47F));
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
             tlpBase.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
-            tlpBase.Size = new Size(1168, 695);
+            tlpBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tlpBase.Size = new Size(1168, 818);
             tlpBase.TabIndex = 0;
             // 
             // lblEstadoInicial
             // 
             lblEstadoInicial.Anchor = AnchorStyles.Bottom;
             lblEstadoInicial.AutoSize = true;
-            lblEstadoInicial.Location = new Point(517, 12);
-            lblEstadoInicial.Margin = new Padding(4, 0, 4, 6);
+            lblEstadoInicial.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblEstadoInicial.ForeColor = SystemColors.HotTrack;
+            lblEstadoInicial.Location = new Point(528, 20);
+            lblEstadoInicial.Margin = new Padding(4, 0, 4, 7);
             lblEstadoInicial.Name = "lblEstadoInicial";
-            lblEstadoInicial.Size = new Size(131, 22);
+            lblEstadoInicial.Size = new Size(108, 20);
             lblEstadoInicial.TabIndex = 2;
             lblEstadoInicial.Text = "[Estado inicial]";
             // 
             // txtContenidoArchivo
             // 
-            txtContenidoArchivo.BackColor = SystemColors.Window;
+            txtContenidoArchivo.BackColor = SystemColors.Control;
             txtContenidoArchivo.BorderStyle = BorderStyle.FixedSingle;
             txtContenidoArchivo.Dock = DockStyle.Fill;
-            txtContenidoArchivo.Location = new Point(4, 142);
-            txtContenidoArchivo.Margin = new Padding(4);
+            txtContenidoArchivo.Location = new Point(4, 167);
+            txtContenidoArchivo.Margin = new Padding(4, 5, 4, 5);
             txtContenidoArchivo.Multiline = true;
             txtContenidoArchivo.Name = "txtContenidoArchivo";
             txtContenidoArchivo.ReadOnly = true;
-            txtContenidoArchivo.Size = new Size(342, 498);
+            txtContenidoArchivo.Size = new Size(342, 586);
             txtContenidoArchivo.TabIndex = 10;
             // 
             // txtEstados
             // 
-            txtEstados.BackColor = SystemColors.Window;
+            txtEstados.BackColor = SystemColors.Control;
             txtEstados.BorderStyle = BorderStyle.FixedSingle;
             txtEstados.Dock = DockStyle.Fill;
-            txtEstados.Location = new Point(354, 142);
-            txtEstados.Margin = new Padding(4);
+            txtEstados.Location = new Point(354, 167);
+            txtEstados.Margin = new Padding(4, 5, 4, 5);
             txtEstados.Multiline = true;
             txtEstados.Name = "txtEstados";
             txtEstados.ReadOnly = true;
-            txtEstados.Size = new Size(147, 498);
+            txtEstados.Size = new Size(147, 586);
             txtEstados.TabIndex = 11;
             // 
             // txtAlfabeto
             // 
-            txtAlfabeto.BackColor = SystemColors.Window;
+            txtAlfabeto.BackColor = SystemColors.Control;
             txtAlfabeto.BorderStyle = BorderStyle.FixedSingle;
             txtAlfabeto.Dock = DockStyle.Fill;
-            txtAlfabeto.Location = new Point(509, 142);
-            txtAlfabeto.Margin = new Padding(4);
+            txtAlfabeto.Location = new Point(509, 167);
+            txtAlfabeto.Margin = new Padding(4, 5, 4, 5);
             txtAlfabeto.Multiline = true;
             txtAlfabeto.Name = "txtAlfabeto";
             txtAlfabeto.ReadOnly = true;
-            txtAlfabeto.Size = new Size(147, 498);
+            txtAlfabeto.Size = new Size(147, 586);
             txtAlfabeto.TabIndex = 12;
             // 
             // txtEstadosDeAceptacion
             // 
-            txtEstadosDeAceptacion.BackColor = SystemColors.Window;
+            txtEstadosDeAceptacion.BackColor = SystemColors.Control;
             txtEstadosDeAceptacion.BorderStyle = BorderStyle.FixedSingle;
             txtEstadosDeAceptacion.Dock = DockStyle.Fill;
-            txtEstadosDeAceptacion.Location = new Point(664, 142);
-            txtEstadosDeAceptacion.Margin = new Padding(4);
+            txtEstadosDeAceptacion.Location = new Point(664, 167);
+            txtEstadosDeAceptacion.Margin = new Padding(4, 5, 4, 5);
             txtEstadosDeAceptacion.Multiline = true;
             txtEstadosDeAceptacion.Name = "txtEstadosDeAceptacion";
             txtEstadosDeAceptacion.ReadOnly = true;
-            txtEstadosDeAceptacion.Size = new Size(147, 498);
+            txtEstadosDeAceptacion.Size = new Size(147, 586);
             txtEstadosDeAceptacion.TabIndex = 13;
             // 
             // btnCerrar
             // 
             btnCerrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCerrar.Location = new Point(1005, 652);
-            btnCerrar.Margin = new Padding(4, 4, 15, 15);
+            btnCerrar.BackColor = SystemColors.GradientInactiveCaption;
+            btnCerrar.ForeColor = SystemColors.ActiveCaptionText;
+            btnCerrar.Location = new Point(1005, 767);
+            btnCerrar.Margin = new Padding(4, 5, 15, 18);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(148, 28);
+            btnCerrar.Size = new Size(148, 33);
             btnCerrar.TabIndex = 15;
             btnCerrar.Text = "Cerrar";
-            btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.UseVisualStyleBackColor = false;
             btnCerrar.Click += btnCerrar_Click;
             // 
             // dgvTablaTransicion
@@ -249,39 +265,43 @@
             dgvTablaTransicion.AllowUserToDeleteRows = false;
             dgvTablaTransicion.AllowUserToResizeColumns = false;
             dgvTablaTransicion.AllowUserToResizeRows = false;
-            dgvTablaTransicion.BackgroundColor = SystemColors.Window;
+            dgvTablaTransicion.BackgroundColor = SystemColors.Control;
             dgvTablaTransicion.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTablaTransicion.Dock = DockStyle.Fill;
-            dgvTablaTransicion.Location = new Point(819, 142);
-            dgvTablaTransicion.Margin = new Padding(4);
+            dgvTablaTransicion.GridColor = SystemColors.Control;
+            dgvTablaTransicion.Location = new Point(819, 167);
+            dgvTablaTransicion.Margin = new Padding(4, 5, 4, 5);
             dgvTablaTransicion.Name = "dgvTablaTransicion";
             dgvTablaTransicion.ReadOnly = true;
             dgvTablaTransicion.RowHeadersWidth = 51;
             dgvTablaTransicion.RowTemplate.Height = 25;
-            dgvTablaTransicion.Size = new Size(345, 498);
+            dgvTablaTransicion.Size = new Size(345, 586);
             dgvTablaTransicion.TabIndex = 14;
             // 
             // lblTablaTransicion
             // 
             lblTablaTransicion.Anchor = AnchorStyles.Bottom;
             lblTablaTransicion.AutoSize = true;
-            lblTablaTransicion.Location = new Point(906, 116);
+            lblTablaTransicion.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTablaTransicion.ForeColor = SystemColors.HotTrack;
+            lblTablaTransicion.Location = new Point(919, 142);
             lblTablaTransicion.Margin = new Padding(4, 0, 4, 0);
             lblTablaTransicion.Name = "lblTablaTransicion";
-            lblTablaTransicion.Size = new Size(171, 22);
+            lblTablaTransicion.Size = new Size(145, 20);
             lblTablaTransicion.TabIndex = 9;
             lblTablaTransicion.Text = "Matriz de transición";
             // 
             // FrmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(10F, 21F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(1168, 695);
+            BackColor = SystemColors.Window;
+            ClientSize = new Size(1168, 818);
             Controls.Add(tlpBase);
-            Font = new Font("Arial", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            ForeColor = SystemColors.ActiveCaptionText;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(4);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Leer autómata";

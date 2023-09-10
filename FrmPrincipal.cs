@@ -13,6 +13,7 @@ namespace WinFormsApp1
         string[] estados;
         string[] alfabeto;
         char estadoInicial;
+        bool archivoCargado = false;
 
         private void limpiarControles()
         {
@@ -29,13 +30,13 @@ namespace WinFormsApp1
         {
             if (activo)
             {
-                txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
-                txtRutaArchivo.Text = "//Arrastre aquí el archivo de texto";
+                txtRutaArchivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
+                txtRutaArchivo.Text = "Arrastre aquí el archivo de texto";
                 txtRutaArchivo.ForeColor = Color.Gray;
             }
             else
             {
-                txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+                txtRutaArchivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
                 txtRutaArchivo.Clear();
                 txtRutaArchivo.ForeColor = Color.Black;
             }
@@ -69,7 +70,7 @@ namespace WinFormsApp1
                     case 'A':
                         dividirCadena(partes[1], txtEstadosDeAceptacion, quintupla);
                         break;
-                    case 'W':
+                    case 'w':
                         generarTabla(partes[1]);
                         break;
                 }
@@ -123,8 +124,6 @@ namespace WinFormsApp1
                 DataGridViewTextBoxColumn columna;
                 string estadoInicial = "";
                 string tituloColumna = "";
-                int cantidadEstados = 0;
-                int cantidadCeldas = 0;
 
                 cadenaTransiciones = cadenaTransiciones.Trim('{', '}');
                 string expresionRegular = @"\(([^)]+)\)";
@@ -154,27 +153,17 @@ namespace WinFormsApp1
                     dgvTablaTransicion.Rows.Add(estado);
                 }
 
-                cantidadEstados = coincidencias.Count;
-                cantidadCeldas = (dgvTablaTransicion.RowCount * dgvTablaTransicion.ColumnCount) - dgvTablaTransicion.RowCount;
-
-                if (cantidadEstados == cantidadCeldas)
+                for (int fila = 0; fila < dgvTablaTransicion.RowCount; fila++)
                 {
-                    for (int fila = 0; fila < dgvTablaTransicion.RowCount; fila++)
+                    estadoInicial = dgvTablaTransicion.Rows[fila].Cells[0].Value.ToString();
+                    for (int col = 1; col < dgvTablaTransicion.Columns.Count; col++)
                     {
-                        estadoInicial = dgvTablaTransicion.Rows[fila].Cells[0].Value.ToString();
-                        for (int col = 1; col < dgvTablaTransicion.Columns.Count; col++)
-                        {
-                            tituloColumna = dgvTablaTransicion.Columns[col].HeaderText;
-                            dgvTablaTransicion.Rows[fila].Cells[col].Value = establecerTransicion(estadoInicial, tituloColumna, transiciones);
-                        }
+                        tituloColumna = dgvTablaTransicion.Columns[col].HeaderText;
+                        dgvTablaTransicion.Rows[fila].Cells[col].Value = establecerTransicion(estadoInicial, tituloColumna, transiciones);
                     }
+                }
 
-                    dgvTablaTransicion.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                }
-                else
-                {
-                    MessageBox.Show("La cantidad de transiciones no coincide con los espacios disponibles de la matriz de transición", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                dgvTablaTransicion.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
             catch (Exception ex)
             {
@@ -185,9 +174,10 @@ namespace WinFormsApp1
         private string establecerTransicion(string _estado, string _alfabeto, string[] _transiciones)
         {
             string estado = "";
-            string[] partesTransicion;
             try
             {
+                string[] partesTransicion;
+
                 foreach (string transicion in _transiciones)
                 {
                     partesTransicion = transicion.Split(new char[] { ',' }, StringSplitOptions.TrimEntries);
@@ -196,11 +186,6 @@ namespace WinFormsApp1
                         estado = partesTransicion[2];
                         break;
                     }
-                }
-
-                if (String.IsNullOrEmpty(estado))
-                {
-                    estado = "N/A";
                 }
             }
             catch (Exception ex)
@@ -216,7 +201,6 @@ namespace WinFormsApp1
             limpiarControles();
             textoDefecto(true);
         }
-
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
@@ -264,28 +248,36 @@ namespace WinFormsApp1
         {
             try
             {
-                string[] archivos = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                if (Path.GetExtension(archivos[0]).Equals(".txt", StringComparison.OrdinalIgnoreCase))
+                if (!archivoCargado)
                 {
-                    string linea = "";
-                    var fs = new FileStream(archivos[0], FileMode.Open, FileAccess.Read);
+                    string[] archivos = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-                    textoDefecto(false);
-                    txtRutaArchivo.Text = archivos[0];
-                    limpiarControles();
-
-                    using (var sr = new StreamReader(fs))
+                    if (Path.GetExtension(archivos[0]).Equals(".txt", StringComparison.OrdinalIgnoreCase))
                     {
-                        while ((linea = sr.ReadLine()) != null)
+                        string linea = "";
+                        var fs = new FileStream(archivos[0], FileMode.Open, FileAccess.Read);
+
+                        textoDefecto(false);
+                        txtRutaArchivo.Text = archivos[0];
+                        limpiarControles();
+
+                        using (var sr = new StreamReader(fs))
                         {
-                            procesarLinea(linea);
+                            while ((linea = sr.ReadLine()) != null)
+                            {
+                                procesarLinea(linea);
+                            }
                         }
+                        archivoCargado = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Por favor, arrastra un archivo de texto (.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, arrastra un archivo de texto (.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    archivoCargado = false;
                 }
             }
             catch (Exception ex)

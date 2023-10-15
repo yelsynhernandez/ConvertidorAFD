@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace WinFormsApp1
 {
@@ -32,7 +33,7 @@ namespace WinFormsApp1
             {
                 txtRutaArchivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
                 txtRutaArchivo.Text = "Arrastre aquí el archivo de texto";
-                txtRutaArchivo.ForeColor = Color.Gray;
+                txtRutaArchivo.ForeColor = System.Drawing.ColorTranslator.FromHtml("#8d99ae");
             }
             else
             {
@@ -160,6 +161,14 @@ namespace WinFormsApp1
                     {
                         tituloColumna = dgvTablaTransicion.Columns[col].HeaderText;
                         dgvTablaTransicion.Rows[fila].Cells[col].Value = establecerTransicion(estadoInicial, tituloColumna, transiciones);
+                    }
+                    if (fila % 2 == 0)
+                    {
+                        dgvTablaTransicion.Rows[fila].DefaultCellStyle.BackColor = Color.Silver;
+                    }
+                    else
+                    {
+                        dgvTablaTransicion.Rows[fila].DefaultCellStyle.BackColor = Color.WhiteSmoke;
                     }
                 }
 

@@ -72,7 +72,7 @@ namespace WinFormsApp1
                         dividirCadena(partes[1], txtEstadosDeAceptacion, quintupla);
                         break;
                     case 'w':
-                        generarTabla(partes[1]);
+                        generarTabla(partes[1], dgvTablaTransicion);
                         break;
                 }
             }
@@ -118,7 +118,7 @@ namespace WinFormsApp1
             }
         }
 
-        private void generarTabla(string cadenaTransiciones)
+        private void generarTabla(string cadenaTransiciones, DataGridView dgv)
         {
             try
             {
@@ -140,27 +140,27 @@ namespace WinFormsApp1
 
                 columna = new DataGridViewTextBoxColumn();
                 columna.HeaderText = "";
-                dgvTablaTransicion.Columns.Add(columna);
+                dgv.Columns.Add(columna);
 
                 foreach (string cadena in alfabeto)
                 {
                     columna = new DataGridViewTextBoxColumn();
                     columna.HeaderText = cadena;
-                    dgvTablaTransicion.Columns.Add(columna);
+                    dgv.Columns.Add(columna);
                 }
 
                 foreach (string estado in estados)
                 {
-                    dgvTablaTransicion.Rows.Add(estado);
+                    dgv.Rows.Add(estado);
                 }
 
                 for (int fila = 0; fila < dgvTablaTransicion.RowCount; fila++)
                 {
-                    estadoInicial = dgvTablaTransicion.Rows[fila].Cells[0].Value.ToString();
-                    for (int col = 1; col < dgvTablaTransicion.Columns.Count; col++)
+                    estadoInicial = dgv.Rows[fila].Cells[0].Value.ToString();
+                    for (int col = 1; col < dgv.Columns.Count; col++)
                     {
-                        tituloColumna = dgvTablaTransicion.Columns[col].HeaderText;
-                        dgvTablaTransicion.Rows[fila].Cells[col].Value = establecerTransicion(estadoInicial, tituloColumna, transiciones);
+                        tituloColumna = dgv.Columns[col].HeaderText;
+                        dgv.Rows[fila].Cells[col].Value = establecerTransicion(estadoInicial, tituloColumna, transiciones);
                     }
                     if (fila % 2 == 0)
                     {
@@ -168,11 +168,11 @@ namespace WinFormsApp1
                     }
                     else
                     {
-                        dgvTablaTransicion.Rows[fila].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+                        dgv.Rows[fila].DefaultCellStyle.BackColor = Color.WhiteSmoke;
                     }
                 }
 
-                dgvTablaTransicion.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
             catch (Exception ex)
             {

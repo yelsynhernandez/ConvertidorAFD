@@ -33,7 +33,7 @@ namespace WinFormsApp1
             {
                 txtRutaArchivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
                 txtRutaArchivo.Text = "Arrastre aquí el archivo de texto";
-                txtRutaArchivo.ForeColor = Color.DimGray;
+                txtRutaArchivo.ForeColor = System.Drawing.ColorTranslator.FromHtml("#8d99ae");
             }
             else
             {

@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using LeerAutomata.Clases;
 
 namespace WinFormsApp1
 {
@@ -10,10 +11,6 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
-
-        string[] estados;
-        string[] alfabeto;
-        char estadoInicial;
         bool archivoCargado = false;
 
         private void limpiarControles()
@@ -23,186 +20,27 @@ namespace WinFormsApp1
             txtEstados.Clear();
             txtEstadosDeAceptacion.Clear();
             lblEstadoInicial.Visible = false;
-            dgvTablaTransicion.Rows.Clear();
-            dgvTablaTransicion.Columns.Clear();
+            dgvMatrizTransicion1.Rows.Clear();
+            dgvMatrizTransicion1.Columns.Clear();
         }
 
         private void textoDefecto(bool activo)
         {
+            string fuente = "Times New Roman";
+            float tamanio = 11.25F;
+
             if (activo)
             {
-                txtRutaArchivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
+                txtRutaArchivo.Font = new Font(fuente, tamanio, FontStyle.Italic, GraphicsUnit.Point);
                 txtRutaArchivo.Text = "Arrastre aquí el archivo de texto";
-                txtRutaArchivo.ForeColor = System.Drawing.ColorTranslator.FromHtml("#8d99ae");
+                txtRutaArchivo.ForeColor = System.Drawing.ColorTranslator.FromHtml("#8D99AE");
             }
             else
             {
-                txtRutaArchivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+                txtRutaArchivo.Font = new Font(fuente, tamanio, FontStyle.Regular, GraphicsUnit.Point);
                 txtRutaArchivo.Clear();
-                txtRutaArchivo.ForeColor = Color.Black;
+                txtRutaArchivo.ForeColor = System.Drawing.ColorTranslator.FromHtml("#F0EBD8");
             }
-        }
-
-        private void procesarLinea(string linea)
-        {
-            if (linea.Length > 0)
-            {
-                char quintupla;
-                string[] partes;
-
-                txtContenidoArchivo.AppendText($"{linea}\r\n");
-
-                partes = linea.Split(new string[] { ":" }, StringSplitOptions.None);
-                quintupla = partes[0].ToCharArray()[0];
-
-                switch (quintupla)
-                {
-                    case 'Q':
-                        dividirCadena(partes[1], txtEstados, quintupla);
-                        break;
-                    case 'T':
-                        dividirCadena(partes[1], txtAlfabeto, quintupla);
-                        break;
-                    case 'i':
-                        estadoInicial = partes[1].ToCharArray()[0];
-                        lblEstadoInicial.Text = "Estado inicial: " + estadoInicial;
-                        lblEstadoInicial.Visible = true;
-                        break;
-                    case 'A':
-                        dividirCadena(partes[1], txtEstadosDeAceptacion, quintupla);
-                        break;
-                    case 'w':
-                        generarTabla(partes[1], dgvTablaTransicion);
-                        break;
-                }
-            }
-        }
-        private void dividirCadena(string cadena, TextBox tx, char valorQuintupla)
-        {
-            try
-            {
-                cadena = cadena.Trim('{', '}', ' ');
-                string[] valores = cadena.Split(new char[] { ',' }, StringSplitOptions.TrimEntries);
-                switch (valorQuintupla)
-                {
-                    case 'Q':
-                        estados = valores;
-                        break;
-                    case 'T':
-                        alfabeto = valores;
-                        break;
-                }
-
-                foreach (string valor in valores)
-                {
-                    if (valorQuintupla == 'A')
-                    {
-                        if (estados.Contains(valor))
-                        {
-                            tx.AppendText($"{valor}\r\n");
-                        }
-                        else
-                        {
-                            tx.AppendText($"{valor} - (Estado no definido)\r\n");
-                        }
-                    }
-                    else
-                    {
-                        tx.AppendText($"{valor}\r\n");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void generarTabla(string cadenaTransiciones, DataGridView dgv)
-        {
-            try
-            {
-                DataGridViewTextBoxColumn columna;
-                string estadoInicial = "";
-                string tituloColumna = "";
-
-                cadenaTransiciones = cadenaTransiciones.Trim('{', '}');
-                string expresionRegular = @"\(([^)]+)\)";
-
-                MatchCollection coincidencias = Regex.Matches(cadenaTransiciones, expresionRegular);
-
-                string[] transiciones = new string[coincidencias.Count];
-
-                for (int i = 0; i < coincidencias.Count; i++)
-                {
-                    transiciones[i] = coincidencias[i].Groups[1].Value;
-                }
-
-                columna = new DataGridViewTextBoxColumn();
-                columna.HeaderText = "";
-                dgv.Columns.Add(columna);
-
-                foreach (string cadena in alfabeto)
-                {
-                    columna = new DataGridViewTextBoxColumn();
-                    columna.HeaderText = cadena;
-                    dgv.Columns.Add(columna);
-                }
-
-                foreach (string estado in estados)
-                {
-                    dgv.Rows.Add(estado);
-                }
-
-                for (int fila = 0; fila < dgvTablaTransicion.RowCount; fila++)
-                {
-                    estadoInicial = dgv.Rows[fila].Cells[0].Value.ToString();
-                    for (int col = 1; col < dgv.Columns.Count; col++)
-                    {
-                        tituloColumna = dgv.Columns[col].HeaderText;
-                        dgv.Rows[fila].Cells[col].Value = establecerTransicion(estadoInicial, tituloColumna, transiciones);
-                    }
-                    if (fila % 2 == 0)
-                    {
-                        dgvTablaTransicion.Rows[fila].DefaultCellStyle.BackColor = Color.Silver;
-                    }
-                    else
-                    {
-                        dgv.Rows[fila].DefaultCellStyle.BackColor = Color.WhiteSmoke;
-                    }
-                }
-
-                dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private string establecerTransicion(string _estado, string _alfabeto, string[] _transiciones)
-        {
-            string estado = "";
-            try
-            {
-                string[] partesTransicion;
-
-                foreach (string transicion in _transiciones)
-                {
-                    partesTransicion = transicion.Split(new char[] { ',' }, StringSplitOptions.TrimEntries);
-                    if (partesTransicion[0] == _estado && partesTransicion[1] == _alfabeto)
-                    {
-                        estado = partesTransicion[2];
-                        break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return estado;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -269,15 +107,17 @@ namespace WinFormsApp1
                         textoDefecto(false);
                         txtRutaArchivo.Text = archivos[0];
                         limpiarControles();
+                        GeneradorInicial generadorInicial = new GeneradorInicial();
 
                         using (var sr = new StreamReader(fs))
                         {
                             while ((linea = sr.ReadLine()) != null)
                             {
-                                procesarLinea(linea);
+                                generadorInicial.procesarLinea(lblEstadoInicial, txtContenidoArchivo, txtEstados, txtAlfabeto, txtEstadosDeAceptacion, dgvMatrizTransicion1, linea);
                             }
                         }
                         archivoCargado = true;
+                        generadorInicial.iniciarConvertidor(dgvMatrizTransicion2);
                     }
                     else
                     {

@@ -15,7 +15,7 @@ namespace LeerAutomata.Clases
         string[] ?alfabeto;
         string ?estadoInicial;
         
-        public void procesarLinea(Label lblEstadoInicial,
+        public void ProcesarLinea(Label lblEstadoInicial,
                                   TextBox txtContenidoArchivo,
                                   TextBox txtEstados,
                                   TextBox txtAlfabeto,
@@ -37,10 +37,10 @@ namespace LeerAutomata.Clases
                 switch (quintupla)
                 {
                     case 'Q':
-                        dividirCadena(partes[1], txtEstados, quintupla);
+                        DividirCadena(partes[1], txtEstados, quintupla);
                         break;
                     case 'T':
-                        dividirCadena(partes[1], txtAlfabeto, quintupla);
+                        DividirCadena(partes[1], txtAlfabeto, quintupla);
                         break;
                     case 'i':
                         estadoInicial = partes[1].Trim(' ');
@@ -48,16 +48,16 @@ namespace LeerAutomata.Clases
                         lblEstadoInicial.Visible = true;
                         break;
                     case 'A':
-                        dividirCadena(partes[1], txtEstadosDeAceptacion, quintupla);
+                        DividirCadena(partes[1], txtEstadosDeAceptacion, quintupla);
                         break;
                     case 'w':
                         cadenaTransiciones = partes[1];
-                        generarTabla(cadenaTransiciones, dgvMatrizTransicion1);
+                        GenerarTabla(cadenaTransiciones, dgvMatrizTransicion1);
                         break;
                 }
             }
         }
-        private void dividirCadena(string cadena, TextBox tx, char valorQuintupla)
+        private void DividirCadena(string cadena, TextBox tx, char valorQuintupla)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace LeerAutomata.Clases
             }
         }
 
-        private void generarTabla(string cadenaTransiciones, DataGridView dgv)
+        private void GenerarTabla(string cadenaTransiciones, DataGridView dgv)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace LeerAutomata.Clases
                     for (int col = 1; col < dgv.Columns.Count; col++)
                     {
                         tituloColumna = dgv.Columns[col].HeaderText;
-                        dgv.Rows[fila].Cells[col].Value = establecerTransicion(estadoPreTransicion, tituloColumna, transiciones);
+                        dgv.Rows[fila].Cells[col].Value = EstablecerTransicion(estadoPreTransicion, tituloColumna, transiciones);
                     }
                     if (fila % 2 == 0)
                     {
@@ -160,7 +160,7 @@ namespace LeerAutomata.Clases
             }
         }
 
-        private string establecerTransicion(string _estado, string _alfabeto, string[] _transiciones)
+        private string EstablecerTransicion(string _estado, string _alfabeto, string[] _transiciones)
         {
             string estado = "";
             try
@@ -188,7 +188,7 @@ namespace LeerAutomata.Clases
         public void iniciarConvertidor(DataGridView dgv)
         {
             Convertidor convertidor = new Convertidor(estados,alfabeto,cadenaTransiciones, estadoInicial);
-            convertidor.convertirAFN(dgv);
+            convertidor.ConvertirAFN(dgv);
         }
     }
 }

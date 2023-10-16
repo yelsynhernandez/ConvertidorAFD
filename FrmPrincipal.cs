@@ -24,7 +24,7 @@ namespace WinFormsApp1
             dgvMatrizTransicion1.Columns.Clear();
         }
 
-        private void textoDefecto(bool activo)
+        private void TextoDefecto(bool activo)
         {
             string fuente = "Times New Roman";
             float tamanio = 11.25F;
@@ -43,27 +43,27 @@ namespace WinFormsApp1
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void BtnLimpiar_Click(object sender, EventArgs e)
         {
             limpiarControles();
-            textoDefecto(true);
+            TextoDefecto(true);
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            txtRutaArchivo.DragEnter += txtRutaArchivo_DragEnter;
-            txtRutaArchivo.DragDrop += txtRutaArchivo_DragDrop;
+            txtRutaArchivo.DragEnter += TxtRutaArchivo_DragEnter;
+            txtRutaArchivo.DragDrop += TxtRutaArchivo_DragDrop;
 
             lblEstadoInicial.Visible = false;
-            textoDefecto(true);
+            TextoDefecto(true);
         }
 
-        private void btnCerrar_Click(object sender, EventArgs e)
+        private void BtnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void txtRutaArchivo_DragEnter(object sender, DragEventArgs e)
+        private void TxtRutaArchivo_DragEnter(object sender, DragEventArgs e)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace WinFormsApp1
             }
         }
 
-        private void txtRutaArchivo_DragDrop(object sender, DragEventArgs e)
+        private void TxtRutaArchivo_DragDrop(object sender, DragEventArgs e)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace WinFormsApp1
                         string linea = "";
                         var fs = new FileStream(archivos[0], FileMode.Open, FileAccess.Read);
 
-                        textoDefecto(false);
+                        TextoDefecto(false);
                         txtRutaArchivo.Text = archivos[0];
                         limpiarControles();
                         GeneradorInicial generadorInicial = new GeneradorInicial();
@@ -113,7 +113,7 @@ namespace WinFormsApp1
                         {
                             while ((linea = sr.ReadLine()) != null)
                             {
-                                generadorInicial.procesarLinea(lblEstadoInicial, txtContenidoArchivo, txtEstados, txtAlfabeto, txtEstadosDeAceptacion, dgvMatrizTransicion1, linea);
+                                generadorInicial.ProcesarLinea(lblEstadoInicial, txtContenidoArchivo, txtEstados, txtAlfabeto, txtEstadosDeAceptacion, dgvMatrizTransicion1, linea);
                             }
                         }
                         archivoCargado = true;

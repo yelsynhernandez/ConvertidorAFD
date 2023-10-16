@@ -28,53 +28,85 @@ namespace LeerAutomata.Clases
             this.estadoInicial = estadoInicial;
         }
 
-        public void convertirAFN(DataGridView dgvResultado)
+        public void ConvertirAFN(DataGridView dgvResultado)
         {
             try {
                 int indiceAscii = 65;
                 int estadosGenerados = 0;
                 int estadosRecorridos = 1;
-                int totalColumnas = 0;
+                int columnaComposicion = 0;
                 string cadenaEstados = "";
-                bool nuevoEstado = false;
+                string elemento = "";
+                string estadoU = "";
                 string estadosMueve;
                 string estadosEpsilon;
-                string[] estadosResultantes;
+                string U; 
 
                 Configuraciones ct = new Configuraciones();
-                
                 DataTable dt = new DataTable();
 
-                transiciones = obtenerTransiciones(cadenaTransiciones);
+                transiciones = ObtenerTransiciones(cadenaTransiciones);
 
-                matrizResultante.Add(new List<string>() { "Estados" });
-                
-                foreach (string elemento in alfabeto)
+                AgregarFilaMatriz(matrizResultante, "Estados", "Composición" ,true);
+
+                cadenaEstados = string.Join(",", estados);
+                AgregarFilaMatriz(matrizResultante, ((char)indiceAscii).ToString(), $"{estadoInicial},{EvaluarTransiciones(cadenaEstados, "e")}", false);
+                //matrizResultante.Add(new List<string>() { ((char)indiceAscii).ToString(), null, null,  });
+                estadosGenerados++;
+                indiceAscii++;
+
+                //matrizResultante.Add(new List<string>() { "Estados" });
+
+                //foreach (string elemento in alfabeto)
+                //{
+                //    matrizResultante[0].Add(elemento);
+                //}
+                //matrizResultante[0].Add("Composición");
+
+                columnaComposicion = matrizResultante[0].Count - 1;
+
+                while (estadosRecorridos <= estadosGenerados)
                 {
-                    matrizResultante[0].Add(elemento);
+                    MessageBox.Show($"Evaluando el estado: {matrizResultante[estadosRecorridos][0]}");
+                    for (int columna = 0; columna < alfabeto.Length; columna++) 
+                    //foreach(string elemento in alfabeto)
+                    {
+                        elemento = alfabeto[columna];
+
+                        estadosMueve = EvaluarTransiciones(matrizResultante[estadosRecorridos][columnaComposicion],elemento);
+                        if(!String.IsNullOrEmpty(estadosMueve))
+                        {
+                            estadosEpsilon = EvaluarTransiciones(estadosMueve, "e");
+                            U = UnirElementos(estadosMueve, estadosEpsilon);
+                        }
+                        else
+                        {
+                            U = "N";
+                        }
+
+                        estadoU = BuscarU(U,columnaComposicion);
+
+                        if (String.IsNullOrEmpty(estadoU))
+                        {
+                            estadoU = ((char)indiceAscii).ToString();
+                            AgregarFilaMatriz(matrizResultante, estadoU, U, false);
+                            estadosGenerados++;
+                            indiceAscii++;
+                            matrizResultante[estadosRecorridos][columna + 1] = estadoU;
+                        }
+                        else
+                        {
+                            matrizResultante[estadosRecorridos][columna + 1] = estadoU;
+                        }
+                    }
+                    estadosRecorridos++;
                 }
-                matrizResultante[0].Add("Composición");
+
+                //Configuración de tabla para cargar la data
 
                 foreach (string nombreColumna in matrizResultante[0])
                 {
                     dt.Columns.Add(nombreColumna);
-                }
-
-                cadenaEstados = string.Join(",", estados);
-                totalColumnas = matrizResultante[0].Count;
-
-                matrizResultante.Add(new List<string>() { ((char)indiceAscii).ToString(),null,null, $"{estadoInicial},{evaluarTransiciones(cadenaEstados,"e")}" });
-                estadosGenerados++;
-                indiceAscii++;
-
-                while (estadosRecorridos <= estadosGenerados)
-                {
-                    foreach(string elemento in alfabeto)
-                    {
-                        estadosMueve = evaluarTransiciones(matrizResultante[estadosRecorridos][totalColumnas - 1 ],elemento);
-                        estadosEpsilon = evaluarTransiciones(estadosMueve, "e");
-                        Console.Write(":v");
-                    }
                 }
 
                 for (int fila = 1; fila < matrizResultante.Count; fila++) 
@@ -90,7 +122,7 @@ namespace LeerAutomata.Clases
             }
         }
 
-        private List<List<string>> obtenerTransiciones(string cadena)
+        private List<List<string>> ObtenerTransiciones(string cadena)
         {
             List<List<string>> lista = new List<List<string>>();
             try
@@ -115,7 +147,7 @@ namespace LeerAutomata.Clases
             return lista;
         }
 
-        private string evaluarTransiciones(string cadenaComposicion, string elemento)
+        private string EvaluarTransiciones(string cadenaComposicion, string elemento)
         {
             string resultado = "";
             string[] estados = cadenaComposicion.Split(new String[] { "," }, StringSplitOptions.None);
@@ -133,45 +165,68 @@ namespace LeerAutomata.Clases
 
             if (resultado.Length > 0) {
                 resultado = resultado.Remove(resultado.Length - 1);
+                //string[] array = resultado.Split(',');
+                //Array.Sort(array);
+                //resultado = String.Join(',',array);
             }
             return resultado;
         }
 
-        //private string cerraduraEpsilon(string composicion)
-        //{
-        //    string resultado = "";
-        //    foreach(string estado in _estados)
-        //    {
-        //        for(int fila = 0; fila < transiciones.Count; fila++)
-        //        {
-        //            if(transiciones[fila][0] == estado && transiciones[fila][1] == "e")
-        //            {
-        //                resultado += $"{transiciones[fila][2]},";
-        //            }
-        //        }
-        //    }
-        //    resultado = resultado.Remove(resultado.Length - 1);
-        //    return resultado;
-        //}
+        private string UnirElementos(string transicionesElementos, string transicionesEpsilon)
+        {
+            string resultado = "";
+            string[] arrayElementos;
+            string[] arrayEpsilon;
+            string[] arrayFinal;
 
-        //private string mueve(string T, string elemento)
-        //{
-        //    string resultado = "";
-        //    string[] estados = T.Split(new String[] { "," },StringSplitOptions.None);
+            arrayElementos = transicionesElementos.Split(',');
 
-        //    foreach(string estado in estados)
-        //    {
-        //        for(int fila = 0; fila < transiciones.Count; fila++)
-        //        {
-        //            if (transiciones[fila][0] == estado && transiciones[fila][1] == elemento)
-        //            {
-        //                resultado += $"{transiciones[fila][2]},";
-        //            }
-        //        }
-        //    }
-        //    resultado = resultado.Remove(resultado.Length - 1);
-        //    return resultado;
-        //}
+            if (!String.IsNullOrEmpty(transicionesEpsilon))
+            {
+                arrayEpsilon = transicionesEpsilon.Split(",");
+                arrayFinal = arrayElementos.Union(arrayEpsilon).ToArray();
+            }
+            else
+            {
+                arrayFinal = arrayElementos;
+            }
+           
+            //arrayFinal = arrayFinal.OrderBy(x => x).ToArray();
+            Array.Sort(arrayFinal);
+
+            resultado = string.Join(",", arrayFinal);
+
+            return resultado;
+        }
+
+        private void AgregarFilaMatriz(List<List<string>> lista, string estado, string composicion, bool titulo)
+        {
+            int fila = 0;
+            lista.Add(new List<string>() { estado });
+            fila = (lista.Count) - 1;
+
+            foreach(string elemento in alfabeto)
+            {
+                lista[fila].Add((titulo ? elemento : null));
+            }
+
+            lista[fila].Add(composicion);
+        }
+        private string BuscarU(string composicion, int columnaComposicion)
+        {
+            string estado = "";
+
+            for (int fila = 0; fila < matrizResultante.Count; fila++)
+            {
+                if (matrizResultante[fila][columnaComposicion] == composicion)
+                {
+                    estado = matrizResultante[fila][0];
+                    break;
+                }
+            }
+
+            return estado;
+        }
 
 
     }

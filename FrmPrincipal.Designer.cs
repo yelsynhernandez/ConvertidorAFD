@@ -67,7 +67,7 @@
             txtRutaArchivo.ReadOnly = true;
             txtRutaArchivo.Size = new Size(714, 25);
             txtRutaArchivo.TabIndex = 4;
-            txtRutaArchivo.DragDrop += txtRutaArchivo_DragDrop;
+            txtRutaArchivo.DragDrop += TxtRutaArchivo_DragDrop;
             // 
             // lblContenido
             // 
@@ -125,7 +125,7 @@
             btnLimpiar.TabIndex = 1;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = false;
-            btnLimpiar.Click += btnLimpiar_Click;
+            btnLimpiar.Click += BtnLimpiar_Click;
             // 
             // lblEstadosDeAceptacion
             // 
@@ -331,7 +331,7 @@
             btnCerrar.TabIndex = 15;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = false;
-            btnCerrar.Click += btnCerrar_Click;
+            btnCerrar.Click += BtnCerrar_Click;
             // 
             // lblEstadoInicial
             // 

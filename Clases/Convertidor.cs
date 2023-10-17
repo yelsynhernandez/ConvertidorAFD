@@ -51,25 +51,15 @@ namespace ConvertidorAFD.Clases
 
                 cadenaEstados = string.Join(",", estados);
                 AgregarFilaMatriz(matrizResultante, ((char)indiceAscii).ToString(), $"{estadoInicial},{EvaluarTransiciones(cadenaEstados, "e")}", false);
-                //matrizResultante.Add(new List<string>() { ((char)indiceAscii).ToString(), null, null,  });
                 estadosGenerados++;
                 indiceAscii++;
-
-                //matrizResultante.Add(new List<string>() { "Estados" });
-
-                //foreach (string elemento in alfabeto)
-                //{
-                //    matrizResultante[0].Add(elemento);
-                //}
-                //matrizResultante[0].Add("Composición");
 
                 columnaComposicion = matrizResultante[0].Count - 1;
 
                 while (estadosRecorridos <= estadosGenerados)
                 {
-                    MessageBox.Show($"Evaluando el estado: {matrizResultante[estadosRecorridos][0]}");
                     for (int columna = 0; columna < alfabeto.Length; columna++) 
-                    //foreach(string elemento in alfabeto)
+
                     {
                         elemento = alfabeto[columna];
 

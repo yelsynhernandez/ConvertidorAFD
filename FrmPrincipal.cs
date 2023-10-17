@@ -13,7 +13,7 @@ namespace WinFormsApp1
         }
         bool archivoCargado = false;
 
-        private void limpiarControles()
+        private void LimpiarControles()
         {
             txtContenidoArchivo.Clear();
             txtAlfabeto.Clear();
@@ -22,6 +22,8 @@ namespace WinFormsApp1
             lblEstadoInicial.Visible = false;
             dgvMatrizTransicion1.Rows.Clear();
             dgvMatrizTransicion1.Columns.Clear();
+            dgvMatrizTransicion2.Rows.Clear();
+            dgvMatrizTransicion2.Columns.Clear();
         }
 
         private void TextoDefecto(bool activo)
@@ -45,7 +47,7 @@ namespace WinFormsApp1
 
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
-            limpiarControles();
+            LimpiarControles();
             TextoDefecto(true);
         }
 
@@ -106,8 +108,8 @@ namespace WinFormsApp1
 
                         TextoDefecto(false);
                         txtRutaArchivo.Text = archivos[0];
-                        limpiarControles();
-                        GeneradorInicial generadorInicial = new GeneradorInicial();
+                        LimpiarControles();
+                        GeneradorInicial generadorInicial = new ();
 
                         using (var sr = new StreamReader(fs))
                         {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using LeerAutomata.Clases;
+using ConvertidorAFD.Clases;
 
-namespace LeerAutomata.Clases
+namespace ConvertidorAFD.Clases
 {
     internal class GeneradorInicial
     {

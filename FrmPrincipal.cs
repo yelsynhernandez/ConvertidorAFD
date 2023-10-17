@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using LeerAutomata.Clases;
+using ConvertidorAFD.Clases;
 
 namespace WinFormsApp1
 {

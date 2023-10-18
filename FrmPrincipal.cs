@@ -10,6 +10,8 @@ namespace WinFormsApp1
         public FrmPrincipal()
         {
             InitializeComponent();
+            Configuraciones c = new();
+            c.ConfigurarTexto(this);
         }
         bool archivoCargado = false;
 
@@ -20,15 +22,13 @@ namespace WinFormsApp1
             txtEstados.Clear();
             txtEstadosDeAceptacion.Clear();
             lblEstadoInicial.Visible = false;
-            dgvMatrizTransicion1.Rows.Clear();
-            dgvMatrizTransicion1.Columns.Clear();
-            dgvMatrizTransicion2.Rows.Clear();
-            dgvMatrizTransicion2.Columns.Clear();
+            dgvMatrizTransicion1.DataSource = null;
+            dgvMatrizTransicion2.DataSource = null;
         }
 
         private void TextoDefecto(bool activo)
         {
-            string fuente = "Times New Roman";
+            string fuente = "Segoe UI";
             float tamanio = 11.25F;
 
             if (activo)

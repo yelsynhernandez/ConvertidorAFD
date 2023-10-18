@@ -132,17 +132,9 @@ namespace ConvertidorAFD.Clases
                     }
                 }
 
-                foreach (string nombreColumna in matrizAFN[0])
-                {
-                    dt.Columns.Add(nombreColumna);
-                }
-
-                for (int fila = 1; fila < matrizAFN.Count; fila++)
-                {
-                    dt.Rows.Add(matrizAFN[fila].ToArray());
-                }
+                dt = ct.DimensionarDataTable(matrizAFN);
                 dgv.DataSource = dt;
-                ct.configurarTabla(dgv);
+                ct.ConfigurarTabla(dgv);
 
             }
             catch (Exception ex)

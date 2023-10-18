@@ -92,19 +92,18 @@ namespace ConvertidorAFD.Clases
                     estadosRecorridos++;
                 }
 
-                //Configuración de tabla para cargar la data
+                //foreach (string nombreColumna in matrizAFD[0])
+                //{
+                //    dt.Columns.Add(nombreColumna);
+                //}
 
-                foreach (string nombreColumna in matrizAFD[0])
-                {
-                    dt.Columns.Add(nombreColumna);
-                }
-
-                for (int fila = 1; fila < matrizAFD.Count; fila++) 
-                {
-                    dt.Rows.Add(matrizAFD[fila].ToArray());
-                }
+                //for (int fila = 1; fila < matrizAFD.Count; fila++) 
+                //{
+                //    dt.Rows.Add(matrizAFD[fila].ToArray());
+                //}
+                dt = ct.DimensionarDataTable(matrizAFD);
                 dgvResultado.DataSource = dt;
-                ct.configurarTabla(dgvResultado);
+                ct.ConfigurarTabla(dgvResultado);
             }
             catch (Exception e)
             {

@@ -17,6 +17,18 @@ namespace ConvertidorAFD.Clases
             }
             dgv.RowHeadersVisible = false;
             dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            for (int fila = 0; fila < dgv.Rows.Count; fila++)
+            {
+                if (fila % 2 == 0)
+                {
+                    dgv.Rows[fila].DefaultCellStyle.BackColor = Color.Silver;
+                }
+                else
+                {
+                    dgv.Rows[fila].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+                }
+            }
         }
     }
 }

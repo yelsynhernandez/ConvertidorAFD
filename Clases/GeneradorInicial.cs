@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using LeerAutomata.Clases;
+using ConvertidorAFD.Clases;
 
-namespace LeerAutomata.Clases
+namespace ConvertidorAFD.Clases
 {
     internal class GeneradorInicial
     {
+        List<List<string>> transiciones = new();
+        List<List<string>> matrizAFN = new();
         string cadenaTransiciones = "";
         string[] ?estados;
         string[] ?alfabeto;
@@ -102,57 +105,37 @@ namespace LeerAutomata.Clases
         {
             try
             {
-                Configuraciones ct = new Configuraciones();
-                DataGridViewTextBoxColumn columna;
+                Configuraciones ct = new ();
+                DataTable dt = new();
                 string estadoPreTransicion = "";
-                string tituloColumna = "";
+                string elementoColumna = "";
+                transiciones = ObtenerTransiciones(cadenaTransiciones);
 
-                this.cadenaTransiciones = cadenaTransiciones.Trim('{', '}');
-                string expresionRegular = @"\(([^)]+)\)";
-
-                MatchCollection coincidencias = Regex.Matches(cadenaTransiciones, expresionRegular);
-
-                string[] transiciones = new string[coincidencias.Count];
-
-                for (int i = 0; i < coincidencias.Count; i++)
+                matrizAFN.Add(new List<string> { "Estados" });
+                foreach(string elemento in alfabeto)
                 {
-                    transiciones[i] = coincidencias[i].Groups[1].Value;
-                }
-
-                columna = new DataGridViewTextBoxColumn();
-                columna.HeaderText = "Estados";
-                dgv.Columns.Add(columna);
-
-                foreach (string cadena in alfabeto)
-                {
-                    columna = new DataGridViewTextBoxColumn();
-                    columna.HeaderText = cadena;
-                    dgv.Columns.Add(columna);
+                    matrizAFN[0].Add(elemento);
                 }
 
                 foreach (string estado in estados)
                 {
-                    dgv.Rows.Add(estado);
+                    matrizAFN.Add(new List<string> { estado });
                 }
 
-                for (int fila = 0; fila < dgv.RowCount; fila++)
+                for (int fila = 1; fila < (transiciones.Count) - 1; fila++)
                 {
-                    estadoPreTransicion = dgv.Rows[fila].Cells[0].Value.ToString();
-                    for (int col = 1; col < dgv.Columns.Count; col++)
+                    estadoPreTransicion = matrizAFN[fila][0];
+                    for (int columna = 1; columna < matrizAFN[0].Count; columna++)
                     {
-                        tituloColumna = dgv.Columns[col].HeaderText;
-                        dgv.Rows[fila].Cells[col].Value = EstablecerTransicion(estadoPreTransicion, tituloColumna, transiciones);
-                    }
-                    if (fila % 2 == 0)
-                    {
-                        dgv.Rows[fila].DefaultCellStyle.BackColor = Color.Silver;
-                    }
-                    else
-                    {
-                        dgv.Rows[fila].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+                        elementoColumna = matrizAFN[0][columna];
+                        matrizAFN[fila].Add(EstablecerTransicion(estadoPreTransicion, elementoColumna, transiciones));
                     }
                 }
-                ct.configurarTabla(dgv);
+
+                dt = ct.DimensionarDataTable(matrizAFN);
+                dgv.DataSource = dt;
+                ct.ConfigurarTabla(dgv);
+
             }
             catch (Exception ex)
             {
@@ -160,19 +143,16 @@ namespace LeerAutomata.Clases
             }
         }
 
-        private string EstablecerTransicion(string _estado, string _alfabeto, string[] _transiciones)
+        private string EstablecerTransicion(string _estado, string _elemento, List<List<string>> _transiciones)
         {
             string estado = "";
             try
             {
-                string[] partesTransicion;
-
-                foreach (string transicion in _transiciones)
+                for (int fila = 0; fila < _transiciones.Count; fila++)
                 {
-                    partesTransicion = transicion.Split(new char[] { ',' }, StringSplitOptions.TrimEntries);
-                    if (partesTransicion[0] == _estado && partesTransicion[1] == _alfabeto)
+                    if (_transiciones[fila][0] == _estado && _transiciones[fila][1] == _elemento)
                     {
-                        estado = partesTransicion[2];
+                        estado = _transiciones[fila][2];
                         break;
                     }
                 }
@@ -185,9 +165,35 @@ namespace LeerAutomata.Clases
             return estado;
         }
 
+        private List<List<string>> ObtenerTransiciones(string cadena)
+        {
+            List<List<string>> lista = new List<List<string>>();
+            try
+            {
+                string expresionRegular = @"\(([^)]+)\)";
+                string coincidencia = "";
+                cadena = cadena.Trim('{', '}');
+
+                MatchCollection coincidencias = Regex.Matches(cadenaTransiciones, expresionRegular);
+
+                for (int i = 0; i < coincidencias.Count; i++)
+                {
+                    coincidencia = coincidencias[i].Groups[1].Value;
+                    string[] transicion = coincidencia.Split(new string[] { "," }, StringSplitOptions.None);
+                    lista.Add(new List<string>() { transicion[0], transicion[1], transicion[2] });
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return lista;
+        }
+
+
         public void iniciarConvertidor(DataGridView dgv)
         {
-            Convertidor convertidor = new Convertidor(estados,alfabeto,cadenaTransiciones, estadoInicial);
+            Convertidor convertidor = new (estados,alfabeto,estadoInicial, transiciones);
             convertidor.ConvertirAFN(dgv);
         }
     }

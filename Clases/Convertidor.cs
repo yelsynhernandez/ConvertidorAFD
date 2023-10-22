@@ -191,6 +191,7 @@ namespace ConvertidorAFD.Clases
                     if(siguienteEstado.Length > 0)
                     {
                         estadoEncontrado = siguienteEstado;
+                        resultado += $"{estadoEncontrado},";
                     }
                     else
                     {

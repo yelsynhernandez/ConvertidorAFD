@@ -46,6 +46,7 @@
             label1 = new Label();
             btnCerrar = new Button();
             lblEstadoInicial = new Label();
+            label2 = new Label();
             tlpBase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvMatrizTransicion1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvMatrizTransicion2).BeginInit();
@@ -167,6 +168,7 @@
             tlpBase.Controls.Add(txtRutaArchivo, 0, 2);
             tlpBase.Controls.Add(btnLimpiar, 2, 2);
             tlpBase.Controls.Add(lblEstadoInicial, 3, 2);
+            tlpBase.Controls.Add(label2, 0, 1);
             tlpBase.Dock = DockStyle.Fill;
             tlpBase.Location = new Point(0, 0);
             tlpBase.Margin = new Padding(4);
@@ -191,11 +193,11 @@
             tlpBase.SetColumnSpan(lblTitulo, 4);
             lblTitulo.Font = new Font("Segoe UI Semibold", 17.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitulo.ForeColor = Color.FromArgb(240, 235, 216);
-            lblTitulo.Location = new Point(438, 19);
+            lblTitulo.Location = new Point(338, 19);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(291, 31);
+            lblTitulo.Size = new Size(492, 31);
             lblTitulo.TabIndex = 17;
-            lblTitulo.Text = "Convertidor de AFN a AFD";
+            lblTitulo.Text = "Sistema de conversión de matrices AFN a AFD";
             // 
             // txtContenidoArchivo
             // 
@@ -347,6 +349,18 @@
             lblEstadoInicial.TabIndex = 2;
             lblEstadoInicial.Text = "[Estado inicial]";
             // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top;
+            label2.AutoSize = true;
+            tlpBase.SetColumnSpan(label2, 4);
+            label2.Location = new Point(563, 50);
+            label2.Name = "label2";
+            label2.Padding = new Padding(0, 5, 0, 0);
+            label2.Size = new Size(42, 22);
+            label2.TabIndex = 20;
+            label2.Text = "label2";
+            // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
@@ -388,5 +402,6 @@
         private Label lblTitulo;
         private DataGridView dgvMatrizTransicion2;
         private Label label1;
+        private Label label2;
     }
 }

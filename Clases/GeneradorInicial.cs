@@ -104,6 +104,7 @@ namespace ConvertidorAFD.Clases
                 string origen = "";
                 string elementoColumna = "";
                 string epsilon = "e";
+                bool epsilonCargado = false;
                 transiciones = ObtenerTransiciones(cadenaTransiciones);
 
                 //Configuración de columnas
@@ -116,9 +117,10 @@ namespace ConvertidorAFD.Clases
                 //Verificamos si las transiciones contienen epsilon para considerar la columna de transiciones
                 for (int fila = 0; fila < transiciones.Count; fila++)
                 {
-                    if (transiciones[fila][1] == epsilon)
+                    if (transiciones[fila][1] == epsilon && !epsilonCargado)
                     {
                         matrizAFN[0].Add(epsilon);
+                        epsilonCargado = true;
                     }
                 }
 

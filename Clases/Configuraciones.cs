@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Windows.Forms;
 
 namespace ConvertidorAFD.Clases
 {
@@ -15,19 +16,20 @@ namespace ConvertidorAFD.Clases
             dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             //style.Font = new Font(dgv.Font, FontStyle.Regular);
-            style.ForeColor = System.Drawing.ColorTranslator.FromHtml("#000000");
+            style.ForeColor = ColorTranslator.FromHtml("#000000");
             dgv.DefaultCellStyle = style;
             for (int fila = 0; fila < dgv.Rows.Count; fila++)
             {
                 if (fila % 2 == 0)
                 {
-                    dgv.Rows[fila].DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#0077B6");
+                    dgv.Rows[fila].DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#0077B6");
                 }
                 else
                 {
-                    dgv.Rows[fila].DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#48CAE4");
+                    dgv.Rows[fila].DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#48CAE4");
                 }
             }
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         public DataTable DimensionarDataTable(List<List<string>> matriz)
@@ -54,7 +56,7 @@ namespace ConvertidorAFD.Clases
                 {
                     TextBox textBox = (TextBox)childControl;
                     textBox.Font = new Font("Verdana", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-                    textBox.ForeColor = System.Drawing.ColorTranslator.FromHtml("#F5EBE0");
+                    textBox.ForeColor = ColorTranslator.FromHtml("#F5EBE0");
                 }
 
                 // Recorrer los controles secundarios si existen

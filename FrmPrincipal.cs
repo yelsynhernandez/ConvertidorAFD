@@ -1,4 +1,5 @@
 using ConvertidorAFD.Clases;
+using System.Windows.Forms;
 
 namespace WinFormsApp1
 {
@@ -8,7 +9,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             Configuraciones c = new();
-            c.ConfigurarTexto(this);
+            //c.ConfigurarTexto(this);
         }
         bool archivoCargado = false;
 
@@ -21,6 +22,10 @@ namespace WinFormsApp1
             lblEstadoInicial.Visible = false;
             dgvMatrizTransicion1.DataSource = null;
             dgvMatrizTransicion2.DataSource = null;
+            lblMatrizTransicion1.Visible = false;
+            lblMatrizTransicion2.Visible = false;
+            dgvMatrizTransicion1.Visible = false;
+            dgvMatrizTransicion2.Visible = false;
         }
 
         private void TextoDefecto(bool activo)
@@ -32,13 +37,13 @@ namespace WinFormsApp1
             {
                 txtRutaArchivo.Font = new Font(fuente, tamanio, FontStyle.Italic, GraphicsUnit.Point);
                 txtRutaArchivo.Text = "Arrastre aquí el archivo de texto";
-                txtRutaArchivo.ForeColor = System.Drawing.ColorTranslator.FromHtml("#8D99AE");
+                txtRutaArchivo.ForeColor = ColorTranslator.FromHtml("#6C757D");
             }
             else
             {
                 txtRutaArchivo.Font = new Font(fuente, tamanio, FontStyle.Regular, GraphicsUnit.Point);
                 txtRutaArchivo.Clear();
-                txtRutaArchivo.ForeColor = System.Drawing.ColorTranslator.FromHtml("#F0EBD8");
+                txtRutaArchivo.ForeColor = ColorTranslator.FromHtml("#343A40");
             }
         }
 
@@ -50,10 +55,19 @@ namespace WinFormsApp1
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
+
             txtRutaArchivo.DragEnter += TxtRutaArchivo_DragEnter;
             txtRutaArchivo.DragDrop += TxtRutaArchivo_DragDrop;
 
             lblEstadoInicial.Visible = false;
+            lblMatrizTransicion1.Visible = false;
+            lblMatrizTransicion2.Visible = false;
+            dgvMatrizTransicion1.Visible = false;
+            dgvMatrizTransicion2.Visible = false;
+
+            lblAutor.Text = "Carnet: 9490-17-969. Nombre: Yelsyn Adrid Hernández Crúz";
+            dgvMatrizTransicion1.TabStop = false;
+
             TextoDefecto(true);
         }
 
@@ -116,6 +130,10 @@ namespace WinFormsApp1
                             }
                         }
                         archivoCargado = true;
+                        lblMatrizTransicion1.Visible = true;
+                        lblMatrizTransicion2.Visible = true;
+                        dgvMatrizTransicion1.Visible = true;
+                        dgvMatrizTransicion2.Visible = true;
                         generadorInicial.iniciarConvertidor(dgvMatrizTransicion2);
                     }
                     else

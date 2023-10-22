@@ -8,28 +8,35 @@ namespace ConvertidorAFD.Clases
         public void ConfigurarTabla(DataGridView dgv)
         {
             DataGridViewCellStyle style = new();
-            foreach (DataGridViewColumn columna in dgv.Columns)
-            {
-                columna.SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
-            dgv.RowHeadersVisible = false;
-            dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            
+            dgv.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.DisplayedCells);
+            dgv.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
 
-            //style.Font = new Font(dgv.Font, FontStyle.Regular);
-            style.ForeColor = ColorTranslator.FromHtml("#000000");
-            dgv.DefaultCellStyle = style;
+            for (int columna = 1; columna < dgv.ColumnCount; columna++)
+            {
+                dgv.Columns[columna].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgv.Columns[columna].SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
             for (int fila = 0; fila < dgv.Rows.Count; fila++)
             {
                 if (fila % 2 == 0)
                 {
-                    dgv.Rows[fila].DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#0077B6");
+                    dgv.Rows[fila].DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#E9ECEF");
                 }
                 else
                 {
-                    dgv.Rows[fila].DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#48CAE4");
+                    dgv.Rows[fila].DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#CED4DA");
                 }
             }
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgv.RowHeadersVisible = false;
+
+            style.ForeColor = ColorTranslator.FromHtml("#212529");
+            dgv.DefaultCellStyle = style;
+
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = ColorTranslator.FromHtml("#00509d");
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = ColorTranslator.FromHtml("#CED4DA");
+            dgv.EnableHeadersVisualStyles = false;
         }
 
         public DataTable DimensionarDataTable(List<List<string>> matriz)
@@ -56,7 +63,7 @@ namespace ConvertidorAFD.Clases
                 {
                     TextBox textBox = (TextBox)childControl;
                     textBox.Font = new Font("Verdana", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-                    textBox.ForeColor = ColorTranslator.FromHtml("#F5EBE0");
+                    textBox.ForeColor = ColorTranslator.FromHtml("#212529");
                 }
 
                 // Recorrer los controles secundarios si existen

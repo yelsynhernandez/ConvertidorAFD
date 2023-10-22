@@ -54,13 +54,13 @@
             // txtRutaArchivo
             // 
             txtRutaArchivo.AllowDrop = true;
-            txtRutaArchivo.Anchor = AnchorStyles.None;
             txtRutaArchivo.BackColor = Color.FromArgb(13, 19, 33);
             txtRutaArchivo.BorderStyle = BorderStyle.FixedSingle;
             tlpBase.SetColumnSpan(txtRutaArchivo, 2);
+            txtRutaArchivo.Dock = DockStyle.Fill;
             txtRutaArchivo.Font = new Font("Arial", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
             txtRutaArchivo.ForeColor = Color.FromArgb(240, 235, 216);
-            txtRutaArchivo.Location = new Point(4, 90);
+            txtRutaArchivo.Location = new Point(4, 89);
             txtRutaArchivo.Margin = new Padding(4);
             txtRutaArchivo.MaxLength = 500;
             txtRutaArchivo.Name = "txtRutaArchivo";

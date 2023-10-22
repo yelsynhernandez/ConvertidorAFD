@@ -1,6 +1,3 @@
-using System.Collections.Immutable;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using ConvertidorAFD.Clases;
 
 namespace WinFormsApp1
@@ -109,7 +106,7 @@ namespace WinFormsApp1
                         TextoDefecto(false);
                         txtRutaArchivo.Text = archivos[0];
                         LimpiarControles();
-                        GeneradorInicial generadorInicial = new ();
+                        GeneradorInicial generadorInicial = new();
 
                         using (var sr = new StreamReader(fs))
                         {

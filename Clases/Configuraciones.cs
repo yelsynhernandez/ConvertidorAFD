@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using System.Data;
 using System.Windows.Forms;
 
 namespace ConvertidorAFD.Clases
@@ -14,27 +8,35 @@ namespace ConvertidorAFD.Clases
         public void ConfigurarTabla(DataGridView dgv)
         {
             DataGridViewCellStyle style = new();
-            foreach (DataGridViewColumn columna in dgv.Columns)
-            {
-                columna.SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
-            dgv.RowHeadersVisible = false;
-            dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            
+            dgv.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.DisplayedCells);
+            dgv.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
 
-            //style.Font = new Font(dgv.Font, FontStyle.Regular);
-            style.ForeColor = System.Drawing.ColorTranslator.FromHtml("#000000");
-            dgv.DefaultCellStyle = style;
+            for (int columna = 1; columna < dgv.ColumnCount; columna++)
+            {
+                dgv.Columns[columna].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgv.Columns[columna].SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
             for (int fila = 0; fila < dgv.Rows.Count; fila++)
             {
                 if (fila % 2 == 0)
                 {
-                    dgv.Rows[fila].DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#0077B6");
+                    dgv.Rows[fila].DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#E9ECEF");
                 }
                 else
                 {
-                    dgv.Rows[fila].DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#48CAE4");
+                    dgv.Rows[fila].DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#CED4DA");
                 }
             }
+
+            dgv.RowHeadersVisible = false;
+
+            style.ForeColor = ColorTranslator.FromHtml("#212529");
+            dgv.DefaultCellStyle = style;
+
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = ColorTranslator.FromHtml("#00509d");
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = ColorTranslator.FromHtml("#CED4DA");
+            dgv.EnableHeadersVisualStyles = false;
         }
 
         public DataTable DimensionarDataTable(List<List<string>> matriz)
@@ -61,7 +63,7 @@ namespace ConvertidorAFD.Clases
                 {
                     TextBox textBox = (TextBox)childControl;
                     textBox.Font = new Font("Verdana", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-                    textBox.ForeColor = System.Drawing.ColorTranslator.FromHtml("#F5EBE0");
+                    textBox.ForeColor = ColorTranslator.FromHtml("#212529");
                 }
 
                 // Recorrer los controles secundarios si existen

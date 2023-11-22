@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using System.Data;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using ConvertidorAFD.Clases;
 
 namespace ConvertidorAFD.Clases
 {
@@ -107,28 +101,42 @@ namespace ConvertidorAFD.Clases
             {
                 Configuraciones ct = new ();
                 DataTable dt = new();
-                string estadoPreTransicion = "";
+                string origen = "";
                 string elementoColumna = "";
+                string epsilon = "e";
+                bool epsilonCargado = false;
                 transiciones = ObtenerTransiciones(cadenaTransiciones);
 
+                //Configuración de columnas
                 matrizAFN.Add(new List<string> { "Estados" });
                 foreach(string elemento in alfabeto)
                 {
                     matrizAFN[0].Add(elemento);
                 }
 
+                //Verificamos si las transiciones contienen epsilon para considerar la columna de transiciones
+                for (int fila = 0; fila < transiciones.Count; fila++)
+                {
+                    if (transiciones[fila][1] == epsilon && !epsilonCargado)
+                    {
+                        matrizAFN[0].Add(epsilon);
+                        epsilonCargado = true;
+                    }
+                }
+
+                //Configuración de estados
                 foreach (string estado in estados)
                 {
                     matrizAFN.Add(new List<string> { estado });
                 }
 
-                for (int fila = 1; fila < (transiciones.Count) - 1; fila++)
+                for (int fila = 1; fila < matrizAFN.Count; fila++)
                 {
-                    estadoPreTransicion = matrizAFN[fila][0];
+                    origen = matrizAFN[fila][0];
                     for (int columna = 1; columna < matrizAFN[0].Count; columna++)
                     {
                         elementoColumna = matrizAFN[0][columna];
-                        matrizAFN[fila].Add(EstablecerTransicion(estadoPreTransicion, elementoColumna, transiciones));
+                        matrizAFN[fila].Add(EstablecerTransicion(origen, elementoColumna, transiciones));
                     }
                 }
 
@@ -143,17 +151,16 @@ namespace ConvertidorAFD.Clases
             }
         }
 
-        private string EstablecerTransicion(string _estado, string _elemento, List<List<string>> _transiciones)
+        private static string EstablecerTransicion(string _origen, string _elemento, List<List<string>> _transiciones)
         {
-            string estado = "";
+            string destino = "";
             try
             {
                 for (int fila = 0; fila < _transiciones.Count; fila++)
                 {
-                    if (_transiciones[fila][0] == _estado && _transiciones[fila][1] == _elemento)
+                    if (_transiciones[fila][0] == _origen &&  _transiciones[fila][1] == _elemento)
                     {
-                        estado = _transiciones[fila][2];
-                        break;
+                        destino += $"{_transiciones[fila][2]},";
                     }
                 }
             }
@@ -162,16 +169,16 @@ namespace ConvertidorAFD.Clases
                 MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return estado;
+            return (destino.Length > 0 ? destino.Remove(destino.Length - 1) : ""); ;
         }
 
         private List<List<string>> ObtenerTransiciones(string cadena)
         {
-            List<List<string>> lista = new List<List<string>>();
+            List<List<string>> lista = new();
             try
             {
                 string expresionRegular = @"\(([^)]+)\)";
-                string coincidencia = "";
+                string coincidencia;
                 cadena = cadena.Trim('{', '}');
 
                 MatchCollection coincidencias = Regex.Matches(cadenaTransiciones, expresionRegular);

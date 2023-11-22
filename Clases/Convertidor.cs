@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics.Contracts;
-using System.DirectoryServices.ActiveDirectory;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Data;
+using System.Security.Cryptography.Xml;
 
 namespace ConvertidorAFD.Clases
 {
@@ -37,9 +28,10 @@ namespace ConvertidorAFD.Clases
                 int estadosGenerados = 0;
                 int estadosRecorridos = 1;
                 int columnaComposicion = 0;
-                string cadenaEstados = "";
-                string elemento = "";
-                string estadoU = "";
+                string composicionInicial = String.Empty;
+                string cadenaEstados = String.Empty;
+                string elemento = String.Empty;
+                string estadoU = String.Empty;
                 string estadosMueve;
                 string estadosEpsilon;
                 string U; 
@@ -48,9 +40,12 @@ namespace ConvertidorAFD.Clases
                 DataTable dt = new();
 
                 AgregarFilaMatriz(matrizAFD, "Estados", "Composición" ,true);
-
+                
                 cadenaEstados = string.Join(",", estados);
-                AgregarFilaMatriz(matrizAFD, ((char)indiceAscii).ToString(), $"{estadoInicial},{EvaluarTransiciones(cadenaEstados, "e")}", false);
+
+                composicionInicial = ComposicionInicial(estadoInicial);
+
+                AgregarFilaMatriz(matrizAFD, ((char)indiceAscii).ToString(), composicionInicial, false);
                 estadosGenerados++;
                 indiceAscii++;
 
@@ -92,15 +87,6 @@ namespace ConvertidorAFD.Clases
                     estadosRecorridos++;
                 }
 
-                //foreach (string nombreColumna in matrizAFD[0])
-                //{
-                //    dt.Columns.Add(nombreColumna);
-                //}
-
-                //for (int fila = 1; fila < matrizAFD.Count; fila++) 
-                //{
-                //    dt.Rows.Add(matrizAFD[fila].ToArray());
-                //}
                 dt = ct.DimensionarDataTable(matrizAFD);
                 dgvResultado.DataSource = dt;
                 ct.ConfigurarTabla(dgvResultado);
@@ -126,8 +112,7 @@ namespace ConvertidorAFD.Clases
                     }
                 }
             }
-            resultado = (resultado.Length > 0 ? resultado.Remove(resultado.Length - 1): "") ;
-            return resultado;
+            return (resultado.Length > 0 ? resultado.Remove(resultado.Length - 1) : ""); ;
         }
 
         private static string UnirElementos(string transicionesElementos, string transicionesEpsilon)
@@ -165,14 +150,17 @@ namespace ConvertidorAFD.Clases
 
             foreach(string elemento in alfabeto)
             {
-                lista[fila].Add(titulo ? elemento : null);
+                if(elemento != "e")
+                {
+                    lista[fila].Add(titulo ? elemento : null);
+                }
             }
 
             lista[fila].Add(composicion);
         }
         private string BuscarU(string composicion, int columnaComposicion)
         {
-            string estado = "";
+            string estado = String.Empty;
 
             for (int fila = 0; fila < matrizAFD.Count; fila++)
             {
@@ -183,9 +171,37 @@ namespace ConvertidorAFD.Clases
                 }
             }
 
-            return estado;
+            return (estado.Length > 0 ? estado: "");
         }
 
+        private string ComposicionInicial(string _estadoInicial)
+        {
+            string resultado = $"{_estadoInicial},";
+            string estadoEncontrado = EvaluarTransiciones(_estadoInicial, "e");
+            string siguienteEstado;
+            bool continuar = true;
+
+            if(estadoEncontrado.Length > 0)
+            {
+                resultado += $"{estadoEncontrado},";
+
+                while (continuar)
+                {
+                    siguienteEstado = EvaluarTransiciones(estadoEncontrado, "e");
+                    if(siguienteEstado.Length > 0)
+                    {
+                        estadoEncontrado = siguienteEstado;
+                        resultado += $"{estadoEncontrado},";
+                    }
+                    else
+                    {
+                        continuar = false;
+                    }
+                }
+            }
+
+            return (resultado.Length > 0 ? resultado.Remove(resultado.Length - 1): "");
+        }
 
     }
 }
